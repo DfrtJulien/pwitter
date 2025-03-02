@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'defre/php',
+        'name' => 'defre/pwitter',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1f2347c82e79ce3a1d2f6f4e0384623cace78fa6',
+        'reference' => '4f588bd3846f62437a1ebedc1c9802e963ed6534',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'defre/php' => array(
+        'defre/pwitter' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1f2347c82e79ce3a1d2f6f4e0384623cace78fa6',
+            'reference' => '4f588bd3846f62437a1ebedc1c9802e963ed6534',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -12,5 +12,10 @@
             "email": "de.freitas.julien78@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "mon/package": "^1.0"
+    },
+    "require-dev": {
+        "mon/package-dev": "^1.0"
+    }
 }
