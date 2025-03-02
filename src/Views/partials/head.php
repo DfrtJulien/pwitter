@@ -14,29 +14,30 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="/">
-                <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
-            </a>
-            <a href="/">
-                <div class="nav-flex">
-                    <i class="fa-solid fa-house"></i>
-                    <p>Accueil</p>
-                </div>
-            </a>
-            <a href="/">
-                <div class="nav-flex">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Rechercher</p>
-                </div>
-            </a>
-            <a href="/">
-                <div class="nav-flex">
-                    <i class="fa-regular fa-envelope"></i>
-                    <p>Message</p>
-                </div>
-            </a>
-            <i class="fa-solid fa-xmark" id="close-icon"></i>
-        </div>
-    </nav>
+    <div class="body">
+        <nav>
+            <div class="nav-container">
+                <a href="/">
+                    <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
+                </a>
+                <a href="/">
+                    <div class="nav-flex">
+                        <i class="fa-solid fa-house"></i>
+                        <p>Accueil</p>
+                    </div>
+                </a>
+                <a href="/">
+                    <div class="nav-flex">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <p>Rechercher</p>
+                    </div>
+                </a>
+                <a href="/">
+                    <div class="nav-flex">
+                        <i class="fa-regular fa-envelope"></i>
+                        <p>Message</p>
+                    </div>
+                </a>
+                <i class="fa-solid fa-xmark" id="close-icon"></i>
+            </div>
+        </nav>
