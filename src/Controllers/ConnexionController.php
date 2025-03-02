@@ -32,7 +32,7 @@ class ConnexionController extends AbstractController
 
           $_SESSION['user'] = [
             'id' => uniqid(),
-            'idUser' => $responseGetUser->getId(),
+            'user_id' => $responseGetUser->getId(),
             'username' => $responseGetUser->getUsername(),
             'mail' => $responseGetUser->getMail(),
             'img' => $responseGetUser->getImg(),
