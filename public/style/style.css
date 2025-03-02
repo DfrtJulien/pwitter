@@ -1,7 +1,13 @@
-* {
+*,
+p {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
 }
 
 img {
@@ -9,6 +15,55 @@ img {
 	height: 100%;
 }
 
-.img-container {
-	width: 450px;
+/************************************ NAVABR **********************************/
+
+.nav-container {
+	background-color: rgb(13, 104, 40);
+	display: flex;
+	flex-direction: column;
+	padding: 15px 25px;
+	row-gap: 15px;
+}
+
+.logo {
+	width: 50px;
+	height: 50px;
+}
+
+.nav-flex {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+	color: white;
+	height: 25px;
+	position: relative;
+}
+
+#close-icon {
+	color: white;
+	position: absolute;
+	right: 35px;
+	font-size: 20px;
+}
+
+nav {
+	display: none;
+}
+
+
+@media screen and (min-width: 698px) {
+
+	/**************** NAVBAR *****************/
+	nav {
+		display: block;
+	}
+
+	#close-icon {
+		display: none;
+	}
+
+	body {
+		display: flex;
+	}
+
 }
