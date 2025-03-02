@@ -1,6 +1,6 @@
 <?php
 require "vendor/autoload.php";
-
+session_start();
 
 require_once "Config/Router.php";
 
@@ -11,6 +11,7 @@ $router = new Router();
 //la page d'accueil
 $router->addRoute('/', 'HomeController', 'index');
 
+$router->addRoute('/register', "ConnexionController", "index");
 
 
 

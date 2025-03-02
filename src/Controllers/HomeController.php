@@ -6,6 +6,11 @@ class HomeController
 {
   public function index()
   {
-    require_once(__DIR__ . '/../Views/home.view.php');
+    if (isset($_SESSION["user"])) {
+
+      require_once(__DIR__ . '/../Views/home.view.php');
+    } else {
+      require_once(__DIR__ . "/../Views/security/register.view.php");
+    }
   }
 }

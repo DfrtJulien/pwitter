@@ -50,6 +50,56 @@ nav {
 	display: none;
 }
 
+/***************************************** CONNEXION *************************************/
+
+.connexion-container {
+	padding: 25px;
+	background-color: rgb(13, 104, 40);
+	min-height: 100vh;
+	color: white;
+}
+
+.connexion-info {
+	margin-top: 20px;
+}
+
+.connexion-info h1 {
+	font-weight: 700;
+}
+
+.connexionLogo {
+	width: 100px;
+}
+
+.connexion-btn-container p:first-child {
+	margin-top: 15px;
+	margin-bottom: 8px;
+}
+
+.or {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	margin-left: 55px;
+}
+
+.active-btn,
+.seconde-btn {
+	border: none;
+	padding: 5px 10px;
+	width: 150px;
+	border-radius: 5px;
+	color: white;
+}
+
+.active-btn {
+	background-color: rgb(243, 94, 65);
+}
+
+.seconde-btn {
+	color: rgb(243, 94, 65);
+	background-color: transparent;
+	border: 1px solid rgb(243, 94, 65);
+}
 
 @media screen and (min-width: 698px) {
 
@@ -62,8 +112,30 @@ nav {
 		display: none;
 	}
 
-	body {
+	.body {
 		display: flex;
 	}
+
+	/***************************************** CONNEXION *************************************/
+
+	.connexion-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.connexion-flex {
+		display: flex;
+		column-gap: 45px;
+	}
+
+	.connexion-info h1 {
+		font-size: 45px;
+	}
+
+	.connexionLogo {
+		width: 250px;
+	}
+
 
 }
