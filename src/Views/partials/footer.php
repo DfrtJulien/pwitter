@@ -4,6 +4,7 @@
     © Copyright : Julien <?php echo date("Y") ?>
   </div>
 </footer>
+<script type="text/javascript" src="/public/javascript/script.js"></script>
 </body>
 
 </html>
