@@ -13,6 +13,8 @@ class Post
   protected ?string $created_at;
   protected string|null $updated_at;
   protected ?int $user_id;
+  protected ?string $username;
+  protected ?string $profile_picture;
 
 
   public function __construct(?int $id, ?string $content, ?string $image, ?string $created_at, string|null $updated_at, ?int $user_id)
@@ -49,6 +51,7 @@ class Post
       return $posts;
     }
   }
+
 
   public function getId(): ?int
   {

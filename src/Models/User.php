@@ -60,6 +60,29 @@ class User
     }
   }
 
+  public function showOtherUser()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT `users`.`id`, `users`.`username`, `users`.`profile_picture`
+            FROM `users`
+            WHERE `users`.`id` <> ?
+            ORDER BY RAND()
+            LIMIT 5";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->id]);
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $users = [];
+    if ($result) {
+      foreach ($result as $row) {
+        $user =  new User($row['id'], $row['username'], null, null, $row['profile_picture'], null, null);
+        $users[] = $user;
+      }
+    } else {
+      return null;
+    }
+    return $users;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

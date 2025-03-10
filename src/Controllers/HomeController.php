@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 
 class HomeController
 {
@@ -10,6 +11,9 @@ class HomeController
   {
     if (isset($_SESSION["user"])) {
       $user_id = $_SESSION['user']['user_id'];
+      $user = new User($user_id, null, null, null, null, null, null);
+      $users = $user->showOtherUser();
+
 
       // ajouter un post
       if (isset($_POST['post'])) {
