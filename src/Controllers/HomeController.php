@@ -19,14 +19,14 @@ class HomeController
       if (isset($_POST['post'])) {
         $post = htmlspecialchars($_POST['post']);
         $created_at = date('Y-m-d');
-        $post = new Post(null, $post, null, $created_at, null, $user_id);
+        $post = new Post(null, $post, null, $created_at, null, $user_id, null, null);
         $post->addPost();
         header("Location: " . "/");
         exit();
       }
 
       // affichage de mes post
-      $post = new Post(null, null, null, null, null, $user_id);
+      $post = new Post(null, null, null, null, null, $user_id, null, null);
       $posts = $post->showPosts();
 
 

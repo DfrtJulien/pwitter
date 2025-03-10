@@ -17,7 +17,7 @@ class Post
   protected ?string $profile_picture;
 
 
-  public function __construct(?int $id, ?string $content, ?string $image, ?string $created_at, string|null $updated_at, ?int $user_id)
+  public function __construct(?int $id, ?string $content, ?string $image, ?string $created_at, string|null $updated_at, ?int $user_id, ?string $username, ?string $profile_picture)
   {
     $this->id = $id;
     $this->content = $content;
@@ -25,6 +25,8 @@ class Post
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
     $this->user_id = $user_id;
+    $this->username = $username;
+    $this->profile_picture = $profile_picture;
   }
 
   public function addPost()
@@ -38,14 +40,17 @@ class Post
   public function showPosts()
   {
     $pdo = DataBase::getConnection();
-    $sql = "SELECT * FROM `posts` WHERE `user_id` = ?";
+    $sql = "SELECT posts.*, `users`.`username`, `users`.`profile_picture` 
+        FROM `posts`
+        JOIN `users` ON `posts`.`user_id` = `users`.`id`
+        WHERE `posts`.`user_id` = ?";
     $statement = $pdo->prepare($sql);
     $statement->execute([$this->user_id]);
     $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
     $posts = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id']);
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
         $posts[] = $post;
       }
       return $posts;
@@ -83,6 +88,16 @@ class Post
   public function getUserId(): ?int
   {
     return $this->user_id;
+  }
+
+  public function getUsername(): ?string
+  {
+    return $this->username;
+  }
+
+  public function getProfilePicture(): ?string
+  {
+    return $this->profile_picture;
   }
 
   public function setId(int $id): static

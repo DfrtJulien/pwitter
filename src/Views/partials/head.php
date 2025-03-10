@@ -15,7 +15,7 @@
 
 <body>
     <div class="body">
-        <nav>
+        <nav class="desktop-nav">
             <div class="nav-container">
                 <a href="/">
                     <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
@@ -38,6 +38,15 @@
                         <p>Message</p>
                     </div>
                 </a>
-                <i class="fa-solid fa-xmark" id="close-icon"></i>
+            </div>
+        </nav>
+        <nav class="mobile-nav">
+            <div class="nav-mobile-container">
+                <div class="user-img">
+                    <img src="/public/img/<?= $_SESSION["user"]["img"] ? $_SESSION["user"]["img"] : "img_default.png" ?>" alt="">
+                </div>
+                <a href="/" class="logo-nav-mobile">
+                    <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
+                </a>
             </div>
         </nav>
