@@ -35,7 +35,7 @@ class ConnexionController extends AbstractController
             'user_id' => $responseGetUser->getId(),
             'username' => $responseGetUser->getUsername(),
             'mail' => $responseGetUser->getMail(),
-            'img' => $responseGetUser->getImg(),
+            'img' => $responseGetUser->getProfilePicture(),
             'bio' => $responseGetUser->getBio(),
             'register_date' => $responseGetUser->getRegisterDate(),
           ];

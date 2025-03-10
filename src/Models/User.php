@@ -110,7 +110,7 @@ class User
   }
 
 
-  public function getImg(): ?string
+  public function getProfilePicture(): ?string
   {
     return $this->profile_picture;
   }

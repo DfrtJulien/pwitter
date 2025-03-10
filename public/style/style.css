@@ -25,8 +25,8 @@ img {
 	background-color: rgb(13, 104, 40);
 	display: flex;
 	flex-direction: column;
-	padding: 15px 25px;
-	row-gap: 15px;
+	padding: 1rem 25px;
+	row-gap: 1rem;
 }
 
 .logo {
@@ -50,8 +50,27 @@ img {
 	font-size: 20px;
 }
 
-nav {
+.desktop-nav {
 	display: none;
+}
+
+.nav-mobile-container {
+	display: flex;
+	padding: 1rem;
+}
+
+.user-img {
+	width: 50px;
+	border-radius: 50%;
+}
+
+.user-img img {
+	border-radius: 50%;
+}
+
+.logo-nav-mobile {
+	width: 50%;
+	text-align: end;
 }
 
 /***************************************** CONNEXION *************************************/
@@ -76,7 +95,7 @@ nav {
 }
 
 .connexion-btn-container p:first-child {
-	margin-top: 15px;
+	margin-top: 1rem;
 	margin-bottom: 8px;
 }
 
@@ -105,11 +124,52 @@ nav {
 	border: 1px solid rgb(243, 94, 65);
 }
 
+
+/*********************************************************** HOME ***************************************************/
+
+#post-form {
+	padding: 1rem;
+}
+
+.show-post {
+	margin-top: 1rem;
+}
+
+.post {
+	padding-top: 1rem;
+	padding-left: 1rem;
+	padding-bottom: 8px;
+	border-top: 1px solid rgba(224, 222, 222, 0.514);
+}
+
+.post-user-info {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+	margin-bottom: 8px;
+}
+
+.post h5,
+.show-users {
+	font-size: 1.5rem;
+	color: white;
+}
+
+.post p,
+.show-users {
+	color: white;
+}
+
+.show-users-container {
+	display: none;
+}
+
 @media screen and (min-width: 698px) {
 
 	/**************** NAVBAR *****************/
-	nav {
+	.desktop-nav {
 		display: block;
+		border-right: 1px solid rgba(224, 222, 222, 0.514);
 	}
 
 	#close-icon {
@@ -124,6 +184,10 @@ nav {
 		display: flex;
 		width: 80%;
 		margin: auto;
+	}
+
+	.nav-mobile-container {
+		display: none;
 	}
 
 	/***************************************** CONNEXION *************************************/
@@ -147,6 +211,16 @@ nav {
 		width: 250px;
 	}
 
-	/**************************************************** HOME *********************************************/
+	/*********************************************************** HOME ***************************************************/
+
+	.show-post {
+		width: 500px;
+	}
+
+	.show-users-container {
+		display: block;
+		border-left: 1px solid rgba(224, 222, 222, 0.514);
+		padding: 1rem;
+	}
 
 }
