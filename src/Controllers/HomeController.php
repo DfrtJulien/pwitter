@@ -38,6 +38,8 @@ class HomeController
         $isFollwed = $follow->isFollowing();
         if (!$isFollwed) {
           $follow->follow();
+          header("Location: " . "/");
+          exit();
         }
       }
 

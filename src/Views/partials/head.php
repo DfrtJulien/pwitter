@@ -38,6 +38,12 @@
                         <p>Message</p>
                     </div>
                 </a>
+                <a href="/logout">
+                    <div class="nav-flex">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <p>Déconnexion</p>
+                    </div>
+                </a>
             </div>
         </nav>
         <nav class="mobile-nav">

@@ -50,4 +50,10 @@ class ConnexionController extends AbstractController
 
     require_once(__DIR__ . "/../Views/security/register.view.php");
   }
+
+  public function logout()
+  {
+    session_destroy();
+    $this->redirectToRoute('/register');
+  }
 }
