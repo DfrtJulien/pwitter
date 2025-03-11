@@ -12,6 +12,7 @@ $router = new Router();
 $router->addRoute('/', 'HomeController', 'index');
 
 $router->addRoute('/register', "ConnexionController", "index");
+$router->addRoute('/logout', "ConnexionController", "logout");
 
 
 

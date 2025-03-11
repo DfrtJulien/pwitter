@@ -180,6 +180,10 @@ img {
 		width: 20%;
 	}
 
+	.nav-flex i {
+		width: 25px;
+	}
+
 	.body {
 		display: flex;
 		width: 80%;
