@@ -13,7 +13,22 @@ class HomeController
     if (isset($_SESSION["user"])) {
       $user_id = $_SESSION['user']['user_id'];
       $user = new User($user_id, null, null, null, null, null, null);
-      $users = $user->showOtherUser();
+      $users = [];
+
+      while (count($users) < 3) {
+        $isUserFollowed = $user->showOtherUser();
+        foreach ($isUserFollowed as $userToFollow) {
+          if (count($users) >= 3) {
+            break;
+          }
+          $id_user_follow = $user->getId();
+          $follow = new Follow(null, $user_id, $id_user_follow);
+          $isFollwed = $follow->isFollowing();
+          if (!$isFollwed) {
+            $users[] = $userToFollow;
+          }
+        }
+      }
 
 
       // ajouter un post
@@ -38,8 +53,6 @@ class HomeController
         $isFollwed = $follow->isFollowing();
         if (!$isFollwed) {
           $follow->follow();
-          header("Location: " . "/");
-          exit();
         }
       }
 
