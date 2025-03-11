@@ -11,6 +11,8 @@ class HomeController
   public function index()
   {
     if (isset($_SESSION["user"])) {
+
+      // afficher des users a suivre qui ne sont déja pas suivi
       $user_id = $_SESSION['user']['user_id'];
       $user = new User($user_id, null, null, null, null, null, null);
       $users = [];
@@ -31,19 +33,36 @@ class HomeController
       }
 
 
+      //récupérer les ids des users suivi
+      $follow = new Follow(null, $user_id, null);
+      $id_users_followed = $follow->followingUserId();
+      $ids = [$user_id];
+
+      foreach ($id_users_followed as $id) {
+        $user_followed_id = $id->getIdFollowing();
+        $ids[] = $user_followed_id;
+      }
+
       // ajouter un post
       if (isset($_POST['post'])) {
         $post = htmlspecialchars($_POST['post']);
-        $created_at = date('Y-m-d');
+        $created_at = date('Y-m-d h:m:s');
         $post = new Post(null, $post, null, $created_at, null, $user_id, null, null);
         $post->addPost();
         header("Location: " . "/");
         exit();
       }
 
-      // affichage de mes post
-      $post = new Post(null, null, null, null, null, $user_id, null, null);
-      $posts = $post->showPosts();
+      // affichage des post
+      $posts = [];
+      foreach ($ids as $id) {
+        $post = new Post(null, null, null, null, null, $id, null, null);
+        $result = $post->showPosts();
+
+        if (is_array($result)) {
+          $posts = array_merge($posts, $result); // Fusionne les objets directement
+        }
+      }
 
 
       // follow un autre user

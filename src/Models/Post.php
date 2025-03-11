@@ -43,7 +43,8 @@ class Post
     $sql = "SELECT posts.*, `users`.`username`, `users`.`profile_picture` 
         FROM `posts`
         JOIN `users` ON `posts`.`user_id` = `users`.`id`
-        WHERE `posts`.`user_id` = ?";
+        WHERE `posts`.`user_id` = ?
+        ORDER BY `posts`.`created_at` DESC;";
     $statement = $pdo->prepare($sql);
     $statement->execute([$this->user_id]);
     $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
