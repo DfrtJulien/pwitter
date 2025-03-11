@@ -35,12 +35,12 @@ require_once(__DIR__ . "/partials/head.php");
     <div class="show-users">
       <div class="post-user-info">
         <div class="user-img">
-          <img src="/public/img/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
+          <img src="/public/img/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="<?= $user->getUsername() ?> profile pciture">
         </div>
-        <h5><?= $post->getUsername() ?></h5>
+        <h5><?= $user->getUsername() ?></h5>
       </div>
-      <form mthod="POST">
-        <input type="hidden" value="<?= $user->getId() ?>">
+      <form method="POST">
+        <input type="hidden" value="<?= $user->getId() ?>" name="follow">
         <button type="submit" class="active-btn">Suivre</button>
       </form>
     </div>
