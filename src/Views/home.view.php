@@ -54,8 +54,11 @@ require_once(__DIR__ . "/partials/head.php");
     <?php
     }
     ?>
+  <?php
+  }
+  ?>
 </div>
 <?php
-  }
-  require_once(__DIR__ . "/partials/footer.php");
+
+require_once(__DIR__ . "/partials/footer.php");
 ?>

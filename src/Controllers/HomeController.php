@@ -12,25 +12,26 @@ class HomeController
   {
     if (isset($_SESSION["user"])) {
 
-      // afficher des users a suivre qui ne sont déja pas suivi
       $user_id = $_SESSION['user']['user_id'];
       $user = new User($user_id, null, null, null, null, null, null);
       $users = [];
-
-      while (count($users) < 3) {
+      $atempt = 0;
+      while (count($users) < 3 && $atempt < 5) {
+        $atempt++;
         $isUserFollowed = $user->showOtherUser();
         foreach ($isUserFollowed as $userToFollow) {
           if (count($users) >= 3) {
             break;
           }
-          $id_user_follow = $user->getId();
+          $id_user_follow = $userToFollow->getId();
           $follow = new Follow(null, $user_id, $id_user_follow);
           $isFollwed = $follow->isFollowing();
-          if (!$isFollwed) {
+          if ($isFollwed === false) {
             $users[] = $userToFollow;
           }
         }
       }
+
 
 
       //récupérer les ids des users suivi
