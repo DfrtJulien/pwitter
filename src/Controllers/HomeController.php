@@ -65,6 +65,11 @@ class HomeController
       }
 
 
+      // trier les posts par le plus récent au plus ancien 
+      usort($posts, function ($a, $b) {
+        return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
+      });
+
       // follow un autre user
       if (isset($_POST['follow'])) {
         $userToFollow = $_POST['follow'];
