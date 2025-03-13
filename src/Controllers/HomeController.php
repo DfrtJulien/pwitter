@@ -5,8 +5,9 @@ namespace App\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
+use App\Utils\AbstractController;
 
-class HomeController
+class HomeController extends AbstractController
 {
   public function index()
   {
@@ -83,7 +84,7 @@ class HomeController
 
       require_once(__DIR__ . '/../Views/home.view.php');
     } else {
-      require_once(__DIR__ . "/../Views/security/register.view.php");
+      $this->redirectToRoute("/register");
     }
   }
 }

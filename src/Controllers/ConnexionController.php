@@ -23,7 +23,6 @@ class ConnexionController extends AbstractController
       $mail = htmlspecialchars($_POST['login-mail']);
       $password = htmlspecialchars($_POST['password']);
       $user = new User(null, null, $mail, $password, null, null, null);
-
       $userExist = $user->existingUser($mail);
       if ($userExist) {
         $responseGetUser = $user->login($mail);

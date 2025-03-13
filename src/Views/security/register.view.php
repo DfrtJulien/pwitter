@@ -67,7 +67,7 @@ require_once(__DIR__ . '/../partials/noHeader.php');
             } ?>
           </div>
           <div class="formLoginRegister">
-            <button type="submit" class="">S'inscrire</button>
+            <button type="submit" class="active-btn">S'inscrire</button>
           </div>
         </div>
       </form>
@@ -77,6 +77,15 @@ require_once(__DIR__ . '/../partials/noHeader.php');
         <div>
           <div>
             <p>Content de vous revoir</p>
+            <?php
+            if (isset($error)) {
+            ?>
+              <div class="alert alert-success errorContainer" role="alert">
+                <p class='text-success'><?= $error ?></p>
+              </div>
+            <?php
+            }
+            ?>
           </div>
           <?php
           if (isset($this->arraySucces['register'])) {
@@ -112,7 +121,7 @@ require_once(__DIR__ . '/../partials/noHeader.php');
             } ?>
           </div>
           <div class="formLoginRegister">
-            <button type="submit" class="activeFormBtn">Se connecter</button>
+            <button type="submit" class="active-btn">Se connecter</button>
           </div>
         </div>
       </form>
