@@ -17,6 +17,9 @@ class HomeController extends AbstractController
       $user = new User($user_id, null, null, null, null, null, null);
       $users = [];
       $atempt = 0;
+
+
+      // afficher des utilisateur a suivre
       while (count($users) < 3 && $atempt < 5) {
         $atempt++;
         $isUserFollowed = $user->showOtherUser();
@@ -35,7 +38,7 @@ class HomeController extends AbstractController
 
 
 
-      //récupérer les ids des users suivi
+      //récupérer les ids des users suivi pour récupérer leur postes
       $follow = new Follow(null, $user_id, null);
       $id_users_followed = $follow->followingUserId();
       $ids = [$user_id];
@@ -45,17 +48,7 @@ class HomeController extends AbstractController
         $ids[] = $user_followed_id;
       }
 
-      // ajouter un post
-      if (isset($_POST['post'])) {
-        $post = htmlspecialchars($_POST['post']);
-        $created_at = date('Y-m-d h:m:s');
-        $post = new Post(null, $post, null, $created_at, null, $user_id, null, null);
-        $post->addPost();
-        header("Location: " . "/");
-        exit();
-      }
-
-      // affichage des post
+      // affichage des postes des user
       $posts = [];
       foreach ($ids as $id) {
         $post = new Post(null, null, null, null, null, $id, null, null);
@@ -66,11 +59,20 @@ class HomeController extends AbstractController
         }
       }
 
-
       // trier les posts par le plus récent au plus ancien 
       usort($posts, function ($a, $b) {
         return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
       });
+
+      // ajouter un post
+      if (isset($_POST['post'])) {
+        $post = htmlspecialchars($_POST['post']);
+        $created_at = date('Y-m-d h:m:s');
+        $post = new Post(null, $post, null, $created_at, null, $user_id, null, null);
+        $post->addPost();
+        header("Location: " . "/");
+        exit();
+      }
 
       // follow un autre user
       if (isset($_POST['follow'])) {

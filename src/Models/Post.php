@@ -58,6 +58,25 @@ class Post
     }
   }
 
+  public function showUserPost()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT posts.*
+    FROM `posts`
+    WHERE `posts`.`user_id` = ?
+    ORDER BY `posts`.`created_at` DESC;";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->user_id]);
+    $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $posts = [];
+    if ($resultFetch) {
+      foreach ($resultFetch as $row) {
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], null, null);
+        $posts[] = $post;
+      }
+      return $posts;
+    }
+  }
 
   public function getId(): ?int
   {

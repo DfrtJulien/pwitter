@@ -53,6 +53,26 @@ class Follow
     }
   }
 
+  public function numberOfFollowByUserId()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT count(`follower_id`) FROM `following` WHERE `follower_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->follower_id]);
+    $resultFetch = $statement->fetchColumn();
+    return $resultFetch;
+  }
+
+  public function numberOfFollowingByUserId()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT count(`following_id`) FROM `following` WHERE `following_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->follower_id]);
+    $resultFetch = $statement->fetchColumn();
+    return $resultFetch;
+  }
+
   public function getId(): ?int
   {
     return $this->id;

@@ -38,6 +38,12 @@
                         <p>Message</p>
                     </div>
                 </a>
+                <a href="/profile?id=<?= $_SESSION['user']['user_id'] ?>">
+                    <div class="nav-flex">
+                        <i class="fa-solid fa-user"></i>
+                        <p>Profile</p>
+                    </div>
+                </a>
                 <a href="/logout">
                     <div class="nav-flex">
                         <i class="fa-solid fa-right-to-bracket"></i>
@@ -46,13 +52,22 @@
                 </a>
             </div>
         </nav>
-        <nav class="mobile-nav">
-            <div class="nav-mobile-container">
-                <div class="user-img">
-                    <img src="/public/img/<?= $_SESSION["user"]["img"] ? $_SESSION["user"]["img"] : "img_default.png" ?>" alt="">
-                </div>
-                <a href="/" class="logo-nav-mobile">
-                    <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
-                </a>
-            </div>
-        </nav>
+        <?php
+        if (isset($page)) {
+            if ($page !== "myProfile") {
+        ?>
+                <nav class="mobile-nav">
+                    <div class="nav-mobile-container">
+                        <div class="user-img">
+                            <img src="/public/img/<?= $_SESSION["user"]["img"] ? $_SESSION["user"]["img"] : "img_default.png" ?>" alt="">
+                        </div>
+                        <a href="/" class="logo-nav-mobile">
+                            <img src="/public/img/logo.png" alt="Pwitter Logo" class="logo">
+                        </a>
+                    </div>
+                </nav>
+
+        <?php
+            }
+        }
+        ?>
