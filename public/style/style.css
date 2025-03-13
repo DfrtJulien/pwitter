@@ -149,7 +149,7 @@ img {
 }
 
 .login-form {
-	/* display: none; */
+	display: none;
 	position: absolute;
 	left: 10%;
 	top: 48%;
@@ -176,11 +176,11 @@ img {
 	display: flex;
 	align-items: center;
 	column-gap: 8px;
-	margin-bottom: 8px;
+	margin: 10px 0;
 }
 
 .post h5,
-.show-users {
+.show-users h5 {
 	font-size: 1.5rem;
 	color: white;
 }
@@ -192,6 +192,34 @@ img {
 
 .show-users-container {
 	display: none;
+}
+
+/********************************* MY PROFILE ***********************/
+
+.user-profile {
+	display: flex;
+	padding: 1rem;
+	align-items: center;
+}
+
+.user-info h3 {
+	margin: 8px 0;
+	font-size: 1.6rem;
+	color: white;
+}
+
+.user-follows {
+	display: flex;
+	column-gap: 8px;
+}
+
+.user-follows span {
+	color: white;
+}
+
+.user-follows p {
+	font-style: italic;
+	color: rgba(231, 229, 229, 0.568);
 }
 
 @media screen and (min-width: 698px) {
@@ -216,7 +244,7 @@ img {
 
 	.body {
 		display: flex;
-		width: 80%;
+		width: 60%;
 		margin: auto;
 	}
 

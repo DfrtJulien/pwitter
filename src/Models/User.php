@@ -83,6 +83,22 @@ class User
     return $users;
   }
 
+  public function showUserProfile()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT `users`.`id`, `users`.`username`, `users`.`profile_picture`, `users`.`bio`
+    FROM `users`
+    WHERE `users`.`id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->id]);
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+      return new User($row['id'], $row['username'], null, null, $row['profile_picture'], $row['bio'], null);
+    } else {
+      return null;
+    }
+  }
+
   public function getId(): ?int
   {
     return $this->id;

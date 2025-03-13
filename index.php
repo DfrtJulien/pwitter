@@ -14,6 +14,6 @@ $router->addRoute('/', 'HomeController', 'index');
 $router->addRoute('/register', "ConnexionController", "index");
 $router->addRoute('/logout', "ConnexionController", "logout");
 
-
+$router->addRoute('/profile', "UserController", "index");
 
 $router->handleRequest();
