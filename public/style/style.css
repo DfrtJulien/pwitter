@@ -124,6 +124,36 @@ img {
 	border: 1px solid rgb(243, 94, 65);
 }
 
+.register-form {
+	display: none;
+	position: absolute;
+	left: 10%;
+	top: 48%;
+}
+
+.register-form,
+.login-form {
+	margin-top: 15px;
+}
+
+.register-form label,
+.login-form label {
+	display: block;
+	font-size: 22px;
+}
+
+.register-form input,
+.login-form input {
+	width: 100%;
+	margin: 5px 0;
+}
+
+.login-form {
+	/* display: none; */
+	position: absolute;
+	left: 10%;
+	top: 48%;
+}
 
 /*********************************************************** HOME ***************************************************/
 
@@ -213,6 +243,13 @@ img {
 
 	.connexionLogo {
 		width: 250px;
+	}
+
+
+	.login-form,
+	.register-form {
+		left: 60%;
+		top: 45%;
 	}
 
 	/*********************************************************** HOME ***************************************************/
