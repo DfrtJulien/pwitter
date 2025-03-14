@@ -99,6 +99,16 @@ class User
     }
   }
 
+  public function updateProfile()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "UPDATE `users` 
+    SET `username` = ?,`bio` = ?,`profile_picture` = ?
+    WHERE `users`.`id` = ?";
+    $statement = $pdo->prepare($sql);
+    return $statement->execute([$this->username, $this->bio, $this->profile_picture, $this->id]);
+  }
+
   public function getId(): ?int
   {
     return $this->id;

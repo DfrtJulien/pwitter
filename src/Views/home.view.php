@@ -20,7 +20,7 @@ require_once(__DIR__ . "/partials/head.php");
             <div class="post">
               <div class="post-user-info">
                 <div class="user-img">
-                  <img src="/public/img/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
+                  <img src="/public/uploads/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
                 </div>
                 <h5><?= $post->getUsername() ?></h5>
               </div>
