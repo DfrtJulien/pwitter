@@ -4,13 +4,11 @@ if(document.getElementById('post-form')){
 
   FORM_POST.addEventListener('submit', function(e) {
     e.preventDefault()
-    console.log('test');
     
   });
 
   window.addEventListener('load', function(e) {
     e.preventDefault()
-    console.log('test');
     
 });
 
@@ -20,6 +18,24 @@ if(document.getElementById('post-form')){
 
   }
 
+if(document.querySelector('.update-form-container')){
+  const EDIT_BTN = document.getElementById('update-form-btn');
+  const UPDATE_FORM = document.querySelector('.update-form-container');
+  const CLOSE_ICON = document.getElementById('update-close-icon');
+
+
+  EDIT_BTN.addEventListener('click', showForm)
+  CLOSE_ICON.addEventListener('click', closeForm);
+  function showForm(){
+    UPDATE_FORM.style.display = "block";
+    document.body.style.overflow = "hidden";
+  }
+  function closeForm(){
+    UPDATE_FORM.style.display = "none";
+    document.body.style.overflow = "visible";
+  }
+
+}
 
 
 

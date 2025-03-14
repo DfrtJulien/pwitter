@@ -60,8 +60,10 @@ img {
 }
 
 .user-img {
-	width: 50px;
+	width: 60px;
 	border-radius: 50%;
+	height: 60px;
+	object-fit: cover;
 }
 
 .user-img img {
@@ -137,13 +139,15 @@ img {
 }
 
 .register-form label,
-.login-form label {
+.login-form label,
+.update-form label {
 	display: block;
 	font-size: 22px;
 }
 
 .register-form input,
-.login-form input {
+.login-form input,
+.update-form input {
 	width: 100%;
 	margin: 5px 0;
 }
@@ -217,10 +221,39 @@ img {
 	color: white;
 }
 
-.user-follows p {
+.user-follows p,
+.user-profile p {
 	font-style: italic;
 	color: rgba(231, 229, 229, 0.568);
 }
+
+.update-form-container {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(12, 12, 12, 0.397);
+	padding: 15px;
+	position: absolute;
+	display: none;
+}
+
+.update-form {
+	background-color: white;
+	padding: 5px;
+	border-radius: 8px;
+	position: relative;
+}
+
+.update-form h2 {
+	font-size: 1.7em;
+	font-weight: bold;
+}
+
+.update-form i {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
 
 @media screen and (min-width: 698px) {
 
@@ -292,4 +325,23 @@ img {
 		padding: 1rem;
 	}
 
+	/************************************** PAGE PROFILE ******************/
+
+	.update-form-container {
+		background-color: rgba(12, 12, 12, 0.397);
+		padding: 15px;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+
+	.update-form {
+		left: 50%;
+		transform: translateX(-50%);
+		top: 25%;
+		max-width: 500px;
+		padding: 25px;
+	}
 }
