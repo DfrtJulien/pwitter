@@ -3,6 +3,7 @@ $page = "myProfile";
 require_once(__DIR__ . '/../partials/head.php');
 ?>
 <div class="show-profile">
+
   <div class="update-form-container">
     <form method="POST" enctype="multipart/form-data" class="update-form">
       <h2>Mettre a jour le profile</h2>
@@ -49,12 +50,19 @@ require_once(__DIR__ . '/../partials/head.php');
         <h3><?= $myUser->getUsername() ?></h3>
         <p><?= $myUser->getBio() ?  $myUser->getBio() : "" ?></p>
         <div class="user-follows">
-          <p><span><?= $numberOfFollow ?  $numberOfFollow : "" ?></span> Abonnement</p>
-          <p><span><?= $numberOfFollowing ?  $numberOfFollowing : "" ?></span> Abonnées</p>
+          <p><span><?= $numberOfFollow ?  $numberOfFollow : "0" ?></span> Abonnement</p>
+          <p><span><?= $numberOfFollowing ?  $numberOfFollowing : "0" ?></span> Abonnées</p>
         </div>
       </div>
     </div>
-    <button class="active-btn" id="update-form-btn">Editer le profile</button>
+    <?php
+    if ($_SESSION['user']['user_id'] == $user_id) {
+    ?>
+      <button class="active-btn" id="update-form-btn">Editer le profile</button>
+    <?php
+    }
+    ?>
+
   </div>
   <div class="show-post">
     <div>

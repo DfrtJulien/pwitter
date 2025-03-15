@@ -40,7 +40,7 @@ class Post
   public function showPosts()
   {
     $pdo = DataBase::getConnection();
-    $sql = "SELECT posts.*, `users`.`username`, `users`.`profile_picture` 
+    $sql = "SELECT posts.*, `users`.`id` AS `user_id`,`users`.`username`, `users`.`profile_picture` 
         FROM `posts`
         JOIN `users` ON `posts`.`user_id` = `users`.`id`
         WHERE `posts`.`user_id` = ?

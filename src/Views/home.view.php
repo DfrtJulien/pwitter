@@ -18,13 +18,15 @@ require_once(__DIR__ . "/partials/head.php");
 
       ?>
             <div class="post">
-              <div class="post-user-info">
-                <div class="user-img">
-                  <img src="/public/uploads/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
+              <a href="/profile?id=<?= $post->getUserId() ?>">
+                <div class="post-user-info">
+                  <div class="user-img">
+                    <img src="/public/uploads/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
+                  </div>
+                  <h5><?= $post->getUsername() ?></h5>
                 </div>
-                <h5><?= $post->getUsername() ?></h5>
-              </div>
-              <p><?= $post->getContent() ?></p>
+                <p><?= $post->getContent() ?></p>
+              </a>
             </div>
       <?php
           }
