@@ -43,11 +43,12 @@ class HomeController extends AbstractController
       $id_users_followed = $follow->followingUserId();
       $ids = [$user_id];
 
-      foreach ($id_users_followed as $id) {
-        $user_followed_id = $id->getIdFollowing();
-        $ids[] = $user_followed_id;
+      if ($id_users_followed) {
+        foreach ($id_users_followed as $id) {
+          $user_followed_id = $id->getIdFollowing();
+          $ids[] = $user_followed_id;
+        }
       }
-
       // affichage des postes des user
       $posts = [];
       foreach ($ids as $id) {
