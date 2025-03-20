@@ -161,6 +161,52 @@ img {
 
 /*********************************************************** HOME ***************************************************/
 
+#post-focus {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.603);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.comment {
+	margin: 25px;
+	background-color: white;
+	padding: 10px;
+	position: relative;
+}
+
+#close-comment {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+
+.add-comment-post {
+	margin-top: 15px;
+}
+
+.add-comment-post input {
+	padding: 5px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.all-comment {
+	margin-top: 15px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.226);
+	padding-bottom: 8px;
+}
+
+.comment-user-info {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+	margin-bottom: 5px;
+}
+
+
 #post-form {
 	padding: 1rem;
 }
@@ -198,7 +244,18 @@ img {
 	display: none;
 }
 
+.add-comment-btn {
+	background-color: transparent;
+	border: none;
+}
+
+#comment-icon {
+	color: rgb(243, 94, 65);
+	font-weight: bold;
+}
+
 /********************************* MY PROFILE ***********************/
+
 
 .user-profile {
 	display: flex;

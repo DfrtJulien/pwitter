@@ -78,6 +78,23 @@ class Post
     }
   }
 
+  public function showPostById()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT posts.*, `users`.`id` AS `user_id`,`users`.`username`, `users`.`profile_picture` 
+        FROM `posts`
+        JOIN `users` ON `posts`.`user_id` = `users`.`id`
+    WHERE `posts`.`id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->id]);
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+      return new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
+    } else {
+      return null;
+    }
+  }
+
   public function getId(): ?int
   {
     return $this->id;

@@ -38,6 +38,22 @@ if(document.querySelector('.update-form-container')){
 }
 
 
+if(document.getElementById('post-focus')){
+  const closeIcon = document.getElementById('close-comment');
+  const comment = document.getElementById('post-focus');
+
+  if(comment.style.display !== "none"){
+    document.body.style.overflow = "hidden";
+  }
+
+  closeIcon.addEventListener('click', closeComment)
+
+  function closeComment(){
+    comment.style.display = "none";
+    document.body.style.overflow = "visible";
+  }
+
+}
 
 
 
