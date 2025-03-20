@@ -6,8 +6,9 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
 use App\Utils\AbstractController;
+use App\Models\Comment;
 
-class HomeController extends AbstractController
+class HomeController
 {
   public function index()
   {
@@ -67,12 +68,15 @@ class HomeController extends AbstractController
 
       // ajouter un post
       if (isset($_POST['post'])) {
-        $post = htmlspecialchars($_POST['post']);
+        $myPost = htmlspecialchars($_POST['post']);
         $created_at = date('Y-m-d h:m:s');
-        $post = new Post(null, $post, null, $created_at, null, $user_id, null, null);
-        $post->addPost();
-        header("Location: " . "/");
-        exit();
+        if ($myPost) {
+          $post = new Post(null, $myPost, null, $created_at, null, $user_id, null, null);
+
+          $post->addPost();
+          header("Location: " . "/");
+          exit();
+        }
       }
 
       // follow un autre user
@@ -85,9 +89,30 @@ class HomeController extends AbstractController
         }
       }
 
+      if (isset($_POST['idPost'])) {
+        $idPost = $_POST['idPost'];
+        $post = new Post($idPost, null, null, null, null, null, null, null);
+        $showPost = $post->showPostById();
+        $comment = new Comment(null, null, null, null, $idPost, null, null);
+        $allComment = $comment->showCommentByPostId();
+      }
+
+      if (isset($_POST['comment'], $_POST['post-id'])) {
+        $comment = $_POST['comment'];
+        $articleId = $_POST['post-id'];
+        $created_at = date('Y-m-d h:m:s');
+        $userId = $_SESSION['user']['user_id'];
+
+        if ($comment) {
+          $post = new Comment(null, $comment, $created_at, $userId, $articleId, null, null);
+          $post->addComment();
+          header("Refresh: 1; /");
+        }
+      }
+
       require_once(__DIR__ . '/../Views/home.view.php');
     } else {
-      $this->redirectToRoute("/register");
+      // $this->redirectToRoute("/register");
     }
   }
 }
