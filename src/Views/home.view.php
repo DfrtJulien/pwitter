@@ -71,19 +71,27 @@ require_once(__DIR__ . "/partials/head.php");
                 <p><?= $post->getContent() ?></p>
               </a>
               <div class="post-icon-container">
-                <form method="POST">
-                  <input type="hidden" name="idPost" value="<?= $post->getId() ?>">
-                  <button type="submit" class="add-comment-btn"><i class="fa-regular fa-comment" id="comment-icon"></i></button>
-                </form>
-                <?php
-                if (array_key_exists($idPost, $idPostAndNumberComment)) {
-                  if ($idPostAndNumberComment[$idPost] !== 0) {
-                ?>
-                    <p><?= $idPostAndNumberComment[$idPost] ?></p>
-                <?php
+                <div class="d-flex comment-icon-container">
+                  <form method="POST">
+                    <input type="hidden" name="idPost" value="<?= $post->getId() ?>">
+                    <button type="submit" class="add-comment-btn"><i class="fa-regular fa-comment" id="comment-icon"></i></button>
+                  </form>
+                  <?php
+                  if (array_key_exists($idPost, $idPostAndNumberComment)) {
+                    if ($idPostAndNumberComment[$idPost] !== 0) {
+                  ?>
+                      <p class="ms-1 number-comment"><?= $idPostAndNumberComment[$idPost] ?></p>
+                  <?php
+                    }
                   }
-                }
-                ?>
+                  ?>
+                </div>
+                <div class="d-flex heart-icon-container">
+                  <form method="POST">
+                    <input type="hidden" name="idLike" value="<?= $post->getId() ?>">
+                    <button type="submit" class="add-like-btn"><i class="fa-regular fa-heart heart-icon"></i></button>
+                  </form>
+                </div>
               </div>
             </div>
       <?php
