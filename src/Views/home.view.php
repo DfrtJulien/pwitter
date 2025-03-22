@@ -91,6 +91,15 @@ require_once(__DIR__ . "/partials/head.php");
                     <input type="hidden" name="idLike" value="<?= $post->getId() ?>">
                     <button type="submit" class="add-like-btn"><i class="fa-regular fa-heart heart-icon"></i></button>
                   </form>
+                  <?php
+                  if (array_key_exists($idPost, $idPostAndNumberLikes)) {
+                    if ($idPostAndNumberLikes[$idPost] !== 0) {
+                  ?>
+                      <p class="ms-1 number-comment"><?= $idPostAndNumberLikes[$idPost] ?></p>
+                  <?php
+                    }
+                  }
+                  ?>
                 </div>
               </div>
             </div>
