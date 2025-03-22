@@ -95,6 +95,14 @@ class Post
     }
   }
 
+  public function deletePost()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "DELETE FROM `posts` WHERE `id` = ?";
+    $statement = $pdo->prepare($sql);
+    return $statement->execute([$this->id]);
+  }
+
   public function getId(): ?int
   {
     return $this->id;
