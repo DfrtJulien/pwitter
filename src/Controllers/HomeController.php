@@ -54,6 +54,7 @@ class HomeController
       // affichage des postes des user que l'on suit
       $posts = [];
       $idPostAndNumberComment = [];
+      $idPostAndNumberLikes = [];
       foreach ($ids as $id) {
         $post = new Post(null, null, null, null, null, $id, null, null);
         $result = $post->showPosts();
@@ -69,11 +70,18 @@ class HomeController
             $comment = new Comment(null, null, null, null, $idPostComment, null, null);
             $NumberComment = $comment->countCommentByPostId();
             // Extraction du nombre de commentaires
-
+            // rendre le tableau associatif en int
             $numberOfComment = reset($NumberComment);
-
-
+            // ajouter l'id du post et le nombre de commentaires
             $idPostAndNumberComment[$idPostComment] = $numberOfComment;
+
+            $like = new Like(null, null, $idPostComment);
+            $NumberLike = $like->countLikesByPostId();
+            // Extraction du nombre de likes
+            // rendre le tableau associatif en int
+            $numberOfLike = reset($NumberLike);
+            // ajouter l'id du post et le nombre de likes
+            $idPostAndNumberLikes[$idPostComment] = $numberOfLike;
           }
         }
       }
@@ -136,7 +144,11 @@ class HomeController
       if (isset($_POST['idLike'])) {
         $idPost = $_POST['idLike'];
         $like = new Like(null, $user_id, $idPost);
-        $like->addLike();
+        if ($like->isLiked()) {
+          $like->deleteLike();
+        } else {
+          $like->addLike();
+        }
         header("Refresh: 1; /");
       }
 

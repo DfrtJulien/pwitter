@@ -27,6 +27,32 @@ class Like
     return $statement->execute([$this->id, $this->user_id, $this->post_id]);
   }
 
+  public function countLikesByPostId()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT count(`user_id`) FROM `likes` WHERE `post_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->post_id]);
+    return $resultFetch = $statement->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function deleteLike()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "DELETE FROM `likes` WHERE `post_id` = ? AND `user_id` = ?";
+    $statement = $pdo->prepare($sql);
+    return $statement->execute([$this->post_id, $this->user_id]);
+  }
+
+  public function isLiked()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT * FROM `likes` WHERE `post_id` = ? AND `user_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->post_id, $this->user_id]);
+    return $statement->fetch();
+  }
+
   public function getId(): ?int
   {
     return $this->id;
