@@ -101,6 +101,18 @@ require_once(__DIR__ . "/partials/head.php");
                   }
                   ?>
                 </div>
+                <?php
+                if ($_SESSION['user']['user_id'] == $post->getUserId()) {
+                ?>
+                  <div class="delete-icon-container">
+                    <form method="POST">
+                      <input type="hidden" name="idPostDelete" value="<?= $post->getId() ?>">
+                      <button type="submit" class="delete-post-btn"><i class="fa-regular fa-trash-can delete-icon"></i></button>
+                    </form>
+                  </div>
+                <?php
+                }
+                ?>
               </div>
             </div>
       <?php

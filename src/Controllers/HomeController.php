@@ -101,7 +101,7 @@ class HomeController
           $post = new Post(null, $myPost, null, $created_at, null, $user_id, null, null);
 
           $post->addPost();
-          header("Location: " . "/");
+          header("Location:  /");
           exit();
         }
       }
@@ -127,7 +127,7 @@ class HomeController
         if ($comment) {
           $post = new Comment(null, $comment, $created_at, $userId, $articleId, null, null);
           $post->addComment();
-          header("Refresh: 1; /");
+          header("Location: /");
         }
       }
 
@@ -149,7 +149,15 @@ class HomeController
         } else {
           $like->addLike();
         }
-        header("Refresh: 1; /");
+        header("Location: /");
+      }
+
+      //supprimer un post
+      if (isset($_POST['idPostDelete'])) {
+        $idPostToDelete = $_POST['idPostDelete'];
+        $post = new Post($idPostToDelete, null, null, null, null, null, null, null);
+        $post->deletePost();
+        header("Location: /");
       }
 
       require_once(__DIR__ . '/../Views/home.view.php');

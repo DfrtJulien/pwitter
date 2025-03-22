@@ -245,7 +245,8 @@ img {
 }
 
 .add-comment-btn,
-.add-like-btn {
+.add-like-btn,
+.delete-post-btn {
 	background-color: transparent;
 	border: none;
 }
@@ -257,7 +258,8 @@ img {
 }
 
 #comment-icon,
-.heart-icon {
+.heart-icon,
+.delete-icon {
 	color: rgba(224, 222, 222, 0.514);
 	transition: all 0.3s ease-in-out;
 	padding: 5px;
@@ -269,7 +271,8 @@ img {
 }
 
 .comment-icon-container,
-.heart-icon-container {
+.heart-icon-container,
+.delete-icon-container {
 	transition: all 0.3s ease-in-out;
 	padding: 5px 10px;
 	border-radius: 40%;
