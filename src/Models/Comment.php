@@ -56,6 +56,14 @@ class Comment
     }
   }
 
+  public function countCommentByPostId()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT count(`content`) FROM `comments` WHERE `post_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->post_id]);
+    return $resultFetch = $statement->fetch(PDO::FETCH_ASSOC);
+  }
 
   public function getId(): ?int
   {

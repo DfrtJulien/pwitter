@@ -58,7 +58,7 @@ require_once(__DIR__ . "/partials/head.php");
         }
         foreach ($posts as $post) {
           if (!empty($post)) {
-
+            $idPost = $post->getId();
           ?>
             <div class="post">
               <a href="/profile?id=<?= $post->getUserId() ?>">
@@ -75,7 +75,15 @@ require_once(__DIR__ . "/partials/head.php");
                   <input type="hidden" name="idPost" value="<?= $post->getId() ?>">
                   <button type="submit" class="add-comment-btn"><i class="fa-regular fa-comment" id="comment-icon"></i></button>
                 </form>
-
+                <?php
+                if (array_key_exists($idPost, $idPostAndNumberComment)) {
+                  if ($idPostAndNumberComment[$idPost] !== 0) {
+                ?>
+                    <p><?= $idPostAndNumberComment[$idPost] ?></p>
+                <?php
+                  }
+                }
+                ?>
               </div>
             </div>
       <?php

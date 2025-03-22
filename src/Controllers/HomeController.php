@@ -52,14 +52,32 @@ class HomeController
       }
       // affichage des postes des user
       $posts = [];
+      $idPostAndNumberComment = [];
       foreach ($ids as $id) {
         $post = new Post(null, null, null, null, null, $id, null, null);
         $result = $post->showPosts();
 
-        if (is_array($result)) {
-          $posts = array_merge($posts, $result); // Fusionne les objets directement
+        if ($result) {
+          if (is_array($result)) {
+            $posts = array_merge($posts, $result); // Fusionne les objets directement
+          }
+          foreach ($result as $post) {
+            $idPostComment = $post->getId();
+
+            // $postId = $result->getId();
+            $comment = new Comment(null, null, null, null, $idPostComment, null, null);
+            $NumberComment = $comment->countCommentByPostId();
+            // Extraction du nombre de commentaires
+
+            $numberOfComment = reset($NumberComment);
+
+
+            $idPostAndNumberComment[$idPostComment] = $numberOfComment;
+          }
         }
       }
+
+
 
       // trier les posts par le plus récent au plus ancien 
       usort($posts, function ($a, $b) {

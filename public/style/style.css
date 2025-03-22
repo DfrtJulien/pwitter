@@ -249,9 +249,18 @@ img {
 	border: none;
 }
 
+.post-icon-container {
+	display: flex;
+	column-gap: 8px;
+}
+
 #comment-icon {
 	color: rgb(243, 94, 65);
 	font-weight: bold;
+}
+
+.post-icon-container p {
+	color: rgba(255, 255, 255, 0.747);
 }
 
 /********************************* MY PROFILE ***********************/
@@ -400,5 +409,11 @@ img {
 		top: 25%;
 		max-width: 500px;
 		padding: 25px;
+	}
+
+
+	.comment {
+		width: 600px;
+		margin: 150px auto;
 	}
 }
