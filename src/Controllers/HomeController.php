@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Follow;
 use App\Utils\AbstractController;
 use App\Models\Comment;
+use App\Models\Like;
 
 class HomeController
 {
@@ -50,7 +51,7 @@ class HomeController
           $ids[] = $user_followed_id;
         }
       }
-      // affichage des postes des user
+      // affichage des postes des user que l'on suit
       $posts = [];
       $idPostAndNumberComment = [];
       foreach ($ids as $id) {
@@ -107,14 +108,8 @@ class HomeController
         }
       }
 
-      if (isset($_POST['idPost'])) {
-        $idPost = $_POST['idPost'];
-        $post = new Post($idPost, null, null, null, null, null, null, null);
-        $showPost = $post->showPostById();
-        $comment = new Comment(null, null, null, null, $idPost, null, null);
-        $allComment = $comment->showCommentByPostId();
-      }
 
+      // ajouter un commentaire
       if (isset($_POST['comment'], $_POST['post-id'])) {
         $comment = $_POST['comment'];
         $articleId = $_POST['post-id'];
@@ -126,6 +121,23 @@ class HomeController
           $post->addComment();
           header("Refresh: 1; /");
         }
+      }
+
+      // afficher les commentaires d'un poste
+      if (isset($_POST['idPost'])) {
+        $idPost = $_POST['idPost'];
+        $post = new Post($idPost, null, null, null, null, null, null, null);
+        $showPost = $post->showPostById();
+        $comment = new Comment(null, null, null, null, $idPost, null, null);
+        $allComment = $comment->showCommentByPostId();
+      }
+
+      // ajouter un like
+      if (isset($_POST['idLike'])) {
+        $idPost = $_POST['idLike'];
+        $like = new Like(null, $user_id, $idPost);
+        $like->addLike();
+        header("Refresh: 1; /");
       }
 
       require_once(__DIR__ . '/../Views/home.view.php');

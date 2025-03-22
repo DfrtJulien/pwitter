@@ -244,23 +244,46 @@ img {
 	display: none;
 }
 
-.add-comment-btn {
+.add-comment-btn,
+.add-like-btn {
 	background-color: transparent;
 	border: none;
 }
 
 .post-icon-container {
 	display: flex;
-	column-gap: 8px;
+	margin-top: 8px;
+	column-gap: 30px;
 }
 
-#comment-icon {
-	color: rgb(243, 94, 65);
-	font-weight: bold;
+#comment-icon,
+.heart-icon {
+	color: rgba(224, 222, 222, 0.514);
+	transition: all 0.3s ease-in-out;
+	padding: 5px;
+	border-radius: 40%;
 }
 
 .post-icon-container p {
 	color: rgba(255, 255, 255, 0.747);
+}
+
+.comment-icon-container,
+.heart-icon-container {
+	transition: all 0.3s ease-in-out;
+	padding: 5px 10px;
+	border-radius: 40%;
+	width: 25px;
+}
+
+#comment-icon:hover {
+	background-color: rgba(243, 95, 65, 0.363);
+	color: rgb(243, 94, 65);
+}
+
+.heart-icon:hover {
+	background-color: rgba(248, 29, 0, 0.342);
+	color: rgb(248, 29, 29);
 }
 
 /********************************* MY PROFILE ***********************/
