@@ -96,7 +96,7 @@ class HomeController
       // ajouter un post
       if (isset($_POST['post'])) {
         $myPost = htmlspecialchars($_POST['post']);
-        $created_at = date('Y-m-d h:m:s');
+        $created_at = date('Y-m-d H:i:s');
         if ($myPost) {
           $post = new Post(null, $myPost, null, $created_at, null, $user_id, null, null);
 
