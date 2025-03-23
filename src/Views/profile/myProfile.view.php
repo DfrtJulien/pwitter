@@ -55,10 +55,18 @@ require_once(__DIR__ . '/../partials/head.php');
         </div>
       </div>
     </div>
+
     <?php
     if ($_SESSION['user']['user_id'] == $user_id) {
     ?>
       <button class="active-btn" id="update-form-btn">Editer le profile</button>
+    <?php
+    } else {
+    ?>
+      <form method="POST">
+        <input type="hidden" name="follow" value="<?= $myUser->getId() ?>">
+        <button type="submit" class="active-btn"><?= $isFollowing ? "Se désabonner" : "S'abonner" ?></button>
+      </form>
     <?php
     }
     ?>
@@ -71,7 +79,6 @@ require_once(__DIR__ . '/../partials/head.php');
 
         foreach ($myPost as $post) {
           if (!empty($post)) {
-
       ?>
             <div class="post">
               <div class="post-user-info">
