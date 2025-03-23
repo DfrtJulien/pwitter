@@ -88,6 +88,20 @@ class UserController extends AbstractController
           }
         }
 
+        $userIsFollowing = $_SESSION['user']['user_id'];
+        $follow = new Follow(null, $userIsFollowing, $user_id);
+        $isFollowing = $follow->isFollowing();
+
+        if (isset($_POST['follow'])) {
+          if ($isFollowing) {
+            $follow->unfollow();
+            header("Location: /" . "profile?id=" . $user_id);
+          } else {
+            $follow->follow();
+            header("Location: /" . "profile?id=" . $user_id);
+          }
+        }
+
         require_once(__DIR__ . '/../Views/profile/myProfile.view.php');
       } else {
         $this->redirectToRoute('/404');

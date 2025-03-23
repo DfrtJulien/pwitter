@@ -36,6 +36,14 @@ class Follow
     return $statement->execute([$this->id, $this->follower_id, $this->following_id]);
   }
 
+  public function unfollow()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "DELETE FROM `following` WHERE follower_id = ? AND following_id = ?";
+    $statement = $pdo->prepare($sql);
+    return $statement->execute([$this->follower_id, $this->following_id]);
+  }
+
   public function followingUserId()
   {
     $pdo = DataBase::getConnection();
