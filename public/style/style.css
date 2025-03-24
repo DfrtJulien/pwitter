@@ -236,8 +236,11 @@ img {
 }
 
 .post p,
-.show-users {
+.show-users,
+.post h2,
+.post h4 {
 	color: white;
+	;
 }
 
 .show-users-container {

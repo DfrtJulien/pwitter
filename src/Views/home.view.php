@@ -66,61 +66,63 @@ require_once(__DIR__ . "/partials/head.php");
                   <div class="user-img">
                     <img src="/public/uploads/<?= $post->getProfilePicture() ? $post->getProfilePicture() : "img_default.png" ?>" alt="<?= $post->getUsername() ?> profile pciture">
                   </div>
-                  <h5><?= $post->getUsername() ?></h5>
-                </div>
-                <p><?= $post->getContent() ?></p>
               </a>
-              <div class="post-icon-container">
-                <div class="d-flex comment-icon-container">
-                  <form method="POST">
-                    <input type="hidden" name="idPost" value="<?= $post->getId() ?>">
-                    <button type="submit" class="add-comment-btn"><i class="fa-regular fa-comment" id="comment-icon"></i></button>
-                  </form>
-                  <?php
-                  if (array_key_exists($idPost, $idPostAndNumberComment)) {
-                    if ($idPostAndNumberComment[$idPost] !== 0) {
-                  ?>
-                      <p class="ms-1 number-comment"><?= $idPostAndNumberComment[$idPost] ?></p>
-                  <?php
-                    }
-                  }
-                  ?>
-                </div>
-                <div class="d-flex heart-icon-container">
-                  <form method="POST">
-                    <input type="hidden" name="idLike" value="<?= $post->getId() ?>">
-                    <button type="submit" class="add-like-btn"><i class="fa-regular fa-heart heart-icon"></i></button>
-                  </form>
-                  <?php
-                  if (array_key_exists($idPost, $idPostAndNumberLikes)) {
-                    if ($idPostAndNumberLikes[$idPost] !== 0) {
-                  ?>
-                      <p class="ms-1 number-comment"><?= $idPostAndNumberLikes[$idPost] ?></p>
-                  <?php
-                    }
-                  }
-                  ?>
-                </div>
+              <a href="/post?id=<?= $post->getId() ?>">
+                <h5><?= $post->getUsername() ?></h5>
+            </div>
+            <p><?= $post->getContent() ?></p>
+            </a>
+            <div class="post-icon-container">
+              <div class="d-flex comment-icon-container">
+                <form method="POST">
+                  <input type="hidden" name="idPost" value="<?= $post->getId() ?>">
+                  <button type="submit" class="add-comment-btn"><i class="fa-regular fa-comment" id="comment-icon"></i></button>
+                </form>
                 <?php
-                if ($_SESSION['user']['user_id'] == $post->getUserId()) {
+                if (array_key_exists($idPost, $idPostAndNumberComment)) {
+                  if ($idPostAndNumberComment[$idPost] !== 0) {
                 ?>
-                  <div class="delete-icon-container">
-                    <form method="POST">
-                      <input type="hidden" name="idPostDelete" value="<?= $post->getId() ?>">
-                      <button type="submit" class="delete-post-btn"><i class="fa-regular fa-trash-can delete-icon"></i></button>
-                    </form>
-                  </div>
+                    <p class="ms-1 number-comment"><?= $idPostAndNumberComment[$idPost] ?></p>
                 <?php
+                  }
                 }
                 ?>
               </div>
+              <div class="d-flex heart-icon-container">
+                <form method="POST">
+                  <input type="hidden" name="idLike" value="<?= $post->getId() ?>">
+                  <button type="submit" class="add-like-btn"><i class="fa-regular fa-heart heart-icon"></i></button>
+                </form>
+                <?php
+                if (array_key_exists($idPost, $idPostAndNumberLikes)) {
+                  if ($idPostAndNumberLikes[$idPost] !== 0) {
+                ?>
+                    <p class="ms-1 number-comment"><?= $idPostAndNumberLikes[$idPost] ?></p>
+                <?php
+                  }
+                }
+                ?>
+              </div>
+              <?php
+              if ($_SESSION['user']['user_id'] == $post->getUserId()) {
+              ?>
+                <div class="delete-icon-container">
+                  <form method="POST">
+                    <input type="hidden" name="idPostDelete" value="<?= $post->getId() ?>">
+                    <button type="submit" class="delete-post-btn"><i class="fa-regular fa-trash-can delete-icon"></i></button>
+                  </form>
+                </div>
+              <?php
+              }
+              ?>
             </div>
-      <?php
+    </div>
+<?php
           }
         }
       }
-      ?>
-    </div>
+?>
+  </div>
   </div>
 </section>
 <div class="show-users-container">
