@@ -80,11 +80,13 @@ class UserController extends AbstractController
             // et je crée un objet avec la variable contenant la nouvelle image
             $user = new User($user_id, $username, null, null, $img, $bio, null);
             $user->updateProfile();
+            header("Refresh: 0");
           } else {
 
             // si mon utilistauer n'a pas changer son image alors je crée un un objet avec la variabke image contenant l'image de la bdd
             $user = new User($user_id, $username, null, null, $myUserImg, $bio, null);
             $user->updateProfile();
+            header("Refresh: 0");
           }
         }
 

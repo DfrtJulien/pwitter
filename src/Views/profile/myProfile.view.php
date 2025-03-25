@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../partials/head.php');
       <h2>Mettre a jour le profile</h2>
       <div class="">
         <label for="username">Nom et Prénom</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" value="<?= $myUser->getUsername() ?>">
         <?php
         if (isset($this->arrayError['username'])) {
         ?>
@@ -21,7 +21,7 @@ require_once(__DIR__ . '/../partials/head.php');
       </div>
       <div class="">
         <label for="bio">Ajouter une bio</label>
-        <input type="text" name="bio" id="bio">
+        <input type="text" name="bio" id="bio" value="<?= $myUser->getBio() ? $myUser->getBio() : "" ?>">
         <?php
         if (isset($this->arrayError['bio'])) {
         ?>
