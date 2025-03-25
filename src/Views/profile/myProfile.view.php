@@ -122,5 +122,18 @@ require_once(__DIR__ . '/../partials/head.php');
   ?>
 </div>
 <?php
+
+  if($usersFollowing){
+    foreach($usersFollowing as $user){
+      ?>
+      <div>
+        <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="">
+        <p><?= $user->getUsername() ?></p>
+        </div>
+      <?php
+    }
+  }
+?>
+<?php
 include_once(__DIR__ . '/../partials/footer.php');
 ?>
