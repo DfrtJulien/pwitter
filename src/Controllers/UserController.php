@@ -18,6 +18,7 @@ class UserController extends AbstractController
         $user = new User($user_id, null, null, null, null, null, null);
         $myUser = $user->showUserProfile();
 
+
         // je récupere la photo de mon user
         $myUserImg = $myUser->getProfilePicture();
         $myUserPath = "/public/upload/" . $myUserImg;
@@ -27,11 +28,11 @@ class UserController extends AbstractController
         $numberOfFollowing = $follow->numberOfFollowingByUserId();
         $id_user_following = $follow->followingUserId();
         $usersFollowing = [];
-        foreach($id_user_following as $userFollowing){
+        foreach ($id_user_following as $userFollowing) {
           $idUserFollowing = $userFollowing->getIdFollowing();
-          $user = new User($idUserFollowing,null,null,null,null,null,null);
-          $myUser = $user->showUserProfile();
-          $usersFollowing[] = $myUser;
+          $user = new User($idUserFollowing, null, null, null, null, null, null);
+          $myUsers = $user->showUserProfile();
+          $usersFollowing[] = $myUsers;
         }
 
         $post = new Post(null, null, null, null, null, $user_id, null, null);

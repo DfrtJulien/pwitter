@@ -322,7 +322,8 @@ img {
 	color: rgba(231, 229, 229, 0.568);
 }
 
-.update-form-container {
+.update-form-container,
+.show-following-container {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(12, 12, 12, 0.397);
@@ -349,6 +350,28 @@ img {
 	right: 5px;
 }
 
+.show-following-container {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.show-following {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	max-width: 450px;
+	padding: 15px;
+	margin: auto;
+}
+
+.show-following-flex {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+	margin-top: 15px;
+}
 
 @media screen and (min-width: 698px) {
 
