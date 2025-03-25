@@ -50,7 +50,7 @@ require_once(__DIR__ . '/../partials/head.php');
         <h3><?= $myUser->getUsername() ?></h3>
         <p><?= $myUser->getBio() ?  $myUser->getBio() : "" ?></p>
         <div class="user-follows">
-          <p><span><?= $numberOfFollow ?  $numberOfFollow : "0" ?></span> Abonnement</p>
+          <p id="following"><span><?= $numberOfFollow ?  $numberOfFollow : "0" ?></span> Abonnement</p>
           <p><span><?= $numberOfFollowing ?  $numberOfFollowing : "0" ?></span> Abonnées</p>
         </div>
       </div>
@@ -123,16 +123,31 @@ require_once(__DIR__ . '/../partials/head.php');
 </div>
 <?php
 
-  if($usersFollowing){
-    foreach($usersFollowing as $user){
-      ?>
-      <div>
-        <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="">
-        <p><?= $user->getUsername() ?></p>
-        </div>
+if ($usersFollowing) {
+?>
+  <div class="show-following-container" id="following-container">
+    <div class="show-following">
+      <i class="fa-solid fa-xmark" id="showFollowing-close-icon"></i>
       <?php
-    }
-  }
+
+      foreach ($usersFollowing as $user) {
+      ?>
+        <a href="/profile?id=<?= $user->getId() ?>">
+          <div class="show-following-flex">
+            <div class="user-img">
+              <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="">
+            </div>
+            <h5><?= $user->getUsername() ?></h5>
+          </div>
+        </a>
+      <?php
+      }
+      ?>
+    </div>
+  </div>
+<?php
+}
+
 ?>
 <?php
 include_once(__DIR__ . '/../partials/footer.php');
