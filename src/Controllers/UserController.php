@@ -28,12 +28,24 @@ class UserController extends AbstractController
         $numberOfFollowing = $follow->numberOfFollowingByUserId();
         $id_user_following = $follow->followingUserId();
         $usersFollowing = [];
+
         foreach ($id_user_following as $userFollowing) {
           $idUserFollowing = $userFollowing->getIdFollowing();
           $user = new User($idUserFollowing, null, null, null, null, null, null);
           $myUsers = $user->showUserProfile();
           $usersFollowing[] = $myUsers;
         }
+        $userFollower = [];
+        $id_user_follower = $follow->followerUserId();
+        $usersFollowed = [];
+        foreach ($id_user_follower as $userFollowing) {
+
+          $idUserFollowing = $userFollowing->getIdFollowed();
+          $user = new User($idUserFollowing, null, null, null, null, null, null);
+          $myUsers = $user->showUserProfile();
+          $usersFollowed[] = $myUsers;
+        }
+
 
         $post = new Post(null, null, null, null, null, $user_id, null, null);
         $myPost = $post->showUserPost();
