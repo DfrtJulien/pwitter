@@ -59,6 +59,26 @@ if(document.getElementById('following-container')){
 
 }
 
+if(document.getElementById('followed-container')){
+  const FOLLOWING_CONTAINER = document.getElementById('followed-container');
+  const CLOSE_FOLLOWING_ICON = document.getElementById('showFollowed-close-icon');
+  const FOLLOWING_p = document.getElementById('followed');
+
+  FOLLOWING_p.addEventListener('click', showFollowing);
+  CLOSE_FOLLOWING_ICON.addEventListener('click', closeFollowing);
+
+
+  function showFollowing(){
+    FOLLOWING_CONTAINER.style.display = "block";
+  }
+
+  function closeFollowing(){
+    FOLLOWING_CONTAINER.style.display = "none";
+  }
+
+
+}
+
 if(document.getElementById('post-focus')){
   const closeIcon = document.getElementById('close-comment');
   const comment = document.getElementById('post-focus');

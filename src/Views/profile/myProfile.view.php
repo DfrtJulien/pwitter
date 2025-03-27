@@ -51,7 +51,7 @@ require_once(__DIR__ . '/../partials/head.php');
         <p><?= $myUser->getBio() ?  $myUser->getBio() : "" ?></p>
         <div class="user-follows">
           <p id="following"><span><?= $numberOfFollow ?  $numberOfFollow : "0" ?></span> Abonnement</p>
-          <p><span><?= $numberOfFollowing ?  $numberOfFollowing : "0" ?></span> Abonnées</p>
+          <p id="followed"><span><?= $numberOfFollowing ?  $numberOfFollowing : "0" ?></span> Abonnées</p>
         </div>
       </div>
     </div>
@@ -131,6 +131,31 @@ if ($usersFollowing) {
       <?php
 
       foreach ($usersFollowing as $user) {
+      ?>
+        <a href="/profile?id=<?= $user->getId() ?>">
+          <div class="show-following-flex">
+            <div class="user-img">
+              <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="">
+            </div>
+            <h5><?= $user->getUsername() ?></h5>
+          </div>
+        </a>
+      <?php
+      }
+      ?>
+    </div>
+  </div>
+<?php
+}
+
+if ($usersFollowed) {
+?>
+  <div class="show-following-container" id="followed-container">
+    <div class="show-following">
+      <i class="fa-solid fa-xmark" id="showFollowed-close-icon"></i>
+      <?php
+
+      foreach ($usersFollowed as $user) {
       ?>
         <a href="/profile?id=<?= $user->getId() ?>">
           <div class="show-following-flex">
