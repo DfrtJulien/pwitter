@@ -96,5 +96,30 @@ if(document.getElementById('post-focus')){
 
 }
 
+if(document.getElementById('show-post-action')){
+  const SHOW_POST_ACTION = document.getElementById('show-post-action');
+  const SHOW_LIKE_ACTION = document.getElementById('show-liked-action');
+  const POST_CONTAINER = document.querySelector('.show-post');
+  const LIKE_CONTAINER = document.querySelector('.show-liked-post');
+
+  SHOW_POST_ACTION.addEventListener('click', showPost);
+  SHOW_LIKE_ACTION.addEventListener('click', showLike);
+
+  function showPost(){
+    SHOW_POST_ACTION.classList.add("post-and-like-container-active");
+    POST_CONTAINER.style.display = "block";
+    LIKE_CONTAINER.style.display = "none";  
+    SHOW_LIKE_ACTION.classList.remove("post-and-like-container-active"); 
+  }
+
+  function showLike(){
+    SHOW_POST_ACTION.classList.remove("post-and-like-container-active");
+    POST_CONTAINER.style.display = "none";
+    LIKE_CONTAINER.style.display = "block";
+    SHOW_LIKE_ACTION.classList.add("post-and-like-container-active");
+  }
+
+}
+
 
 

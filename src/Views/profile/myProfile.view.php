@@ -72,6 +72,10 @@ require_once(__DIR__ . '/../partials/head.php');
     ?>
 
   </div>
+  <div class="post-and-like-container">
+    <p class="post-and-like-container-active" id="show-post-action">Post</p>
+    <p id="show-liked-action">J'aime</p>
+  </div>
   <div class="show-post">
     <div>
       <?php

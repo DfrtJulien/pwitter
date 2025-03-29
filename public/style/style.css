@@ -211,10 +211,6 @@ img {
 	padding: 1rem;
 }
 
-.show-post {
-	margin-top: 1rem;
-}
-
 .post {
 	padding-top: 1rem;
 	padding-left: 1rem;
@@ -377,6 +373,20 @@ img {
 	display: none;
 }
 
+.post-and-like-container {
+	display: flex;
+	column-gap: 20px;
+	padding: 0 1rem;
+}
+
+.post-and-like-container p {
+	color: white;
+}
+
+.post-and-like-container-active {
+	border-bottom: 3px solid rgb(243, 94, 65);
+}
+
 @media screen and (min-width: 698px) {
 
 	/**************** NAVBAR *****************/
@@ -437,7 +447,8 @@ img {
 
 	/*********************************************************** HOME ***************************************************/
 
-	.show-post {
+	.show-post,
+	.show-liked-post {
 		width: 500px;
 	}
 
