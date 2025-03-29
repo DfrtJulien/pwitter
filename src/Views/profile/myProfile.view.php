@@ -109,13 +109,15 @@ require_once(__DIR__ . '/../partials/head.php');
           if (!empty($post)) {
       ?>
             <div class="post">
-              <div class="post-user-info">
-                <div class="user-img">
-                  <img src="/public/uploads/<?= $likedPost->getProfilePicture() ? $likedPost->getProfilePicture() : "img_default.png" ?>" alt="<?= $likedPost->getUsername() ?> profile pciture">
+              <a href="/profile?id=<?= $likedPost->getUserId() ?>">
+                <div class="post-user-info">
+                  <div class="user-img">
+                    <img src="/public/uploads/<?= $likedPost->getProfilePicture() ? $likedPost->getProfilePicture() : "img_default.png" ?>" alt="<?= $likedPost->getUsername() ?> profile pciture">
+                  </div>
+                  <h5><?= $likedPost->getUsername() ?></h5>
                 </div>
-                <h5><?= $likedPost->getUsername() ?></h5>
-              </div>
-              <p><?= $likedPost->getContent() ?></p>
+                <p><?= $likedPost->getContent() ?></p>
+              </a>
             </div>
       <?php
           }
@@ -132,10 +134,12 @@ require_once(__DIR__ . '/../partials/head.php');
   ?>
       <div class="show-users">
         <div class="post-user-info">
-          <div class="user-img">
-            <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="<?= $user->getUsername() ?> profile pciture">
-          </div>
-          <h5><?= $user->getUsername() ?></h5>
+          <a href="/profile?id=<?= $user->getId() ?>">
+            <div class="user-img">
+              <img src="/public/uploads/<?= $user->getProfilePicture() ? $user->getProfilePicture() : "img_default.png" ?>" alt="<?= $user->getUsername() ?> profile pciture">
+            </div>
+            <h5><?= $user->getUsername() ?></h5>
+          </a>
         </div>
         <form method="POST">
           <input type="hidden" value="<?= $user->getId() ?>" name="follow">
