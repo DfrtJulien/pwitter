@@ -96,6 +96,30 @@ require_once(__DIR__ . '/../partials/head.php');
       ?>
     </div>
   </div>
+  <div class="show-liked-post">
+    <div>
+      <?php
+      if (!empty($likedPosts)) {
+
+        foreach ($likedPosts as $likedPost) {
+          if (!empty($post)) {
+      ?>
+            <div class="post">
+              <div class="post-user-info">
+                <div class="user-img">
+                  <img src="/public/uploads/<?= $likedPost->getProfilePicture() ? $likedPost->getProfilePicture() : "img_default.png" ?>" alt="<?= $likedPost->getUsername() ?> profile pciture">
+                </div>
+                <h5><?= $likedPost->getUsername() ?></h5>
+              </div>
+              <p><?= $likedPost->getContent() ?></p>
+            </div>
+      <?php
+          }
+        }
+      }
+      ?>
+    </div>
+  </div>
 </div>
 <div class="show-users-container">
   <?php

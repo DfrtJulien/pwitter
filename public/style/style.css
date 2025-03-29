@@ -373,6 +373,10 @@ img {
 	margin-top: 15px;
 }
 
+.show-liked-post {
+	display: none;
+}
+
 @media screen and (min-width: 698px) {
 
 	/**************** NAVBAR *****************/
