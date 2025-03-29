@@ -30,11 +30,13 @@ class UserController extends AbstractController
         $id_user_following = $follow->followingUserId();
         $usersFollowing = [];
 
-        foreach ($id_user_following as $userFollowing) {
-          $idUserFollowing = $userFollowing->getIdFollowing();
-          $user = new User($idUserFollowing, null, null, null, null, null, null);
-          $myUsers = $user->showUserProfile();
-          $usersFollowing[] = $myUsers;
+        if ($id_user_following) {
+          foreach ($id_user_following as $userFollowing) {
+            $idUserFollowing = $userFollowing->getIdFollowing();
+            $user = new User($idUserFollowing, null, null, null, null, null, null);
+            $myUsers = $user->showUserProfile();
+            $usersFollowing[] = $myUsers;
+          }
         }
         $userFollower = [];
         $id_user_follower = $follow->followerUserId();
@@ -58,13 +60,16 @@ class UserController extends AbstractController
         $idsLikedPost = $like->getPostIdFromUserId();
         $likedPosts = [];
 
-        foreach ($idsLikedPost as $postLiked) {
-          $idPost = $postLiked->getPostId();
-          $post = new Post($idPost, null, null, null, null, null, null, null);
-          $likedPost = $post->showPostById();
-          $likedPosts[] = $likedPost;
-        }
+        if ($idsLikedPost) {
 
+
+          foreach ($idsLikedPost as $postLiked) {
+            $idPost = $postLiked->getPostId();
+            $post = new Post($idPost, null, null, null, null, null, null, null);
+            $likedPost = $post->showPostById();
+            $likedPosts[] = $likedPost;
+          }
+        }
 
         // afficher des utilisateur a suivre
         $users = [];
