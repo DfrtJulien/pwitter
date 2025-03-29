@@ -53,6 +53,24 @@ class Like
     return $statement->fetch();
   }
 
+  public function getPostIdFromUserId()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT `post_id` FROM `likes` WHERE `user_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->user_id]);
+    $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $ids = [];
+    if ($resultFetch) {
+      foreach ($resultFetch as $row) {
+        $ids[] = new Like(null, null, $row['post_id']);
+      }
+      return $ids;
+    } else {
+      return null;
+    }
+  }
+
   public function getId(): ?int
   {
     return $this->id;

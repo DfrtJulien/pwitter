@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
+use App\Models\Like;
 use App\Utils\AbstractController;
 
 class UserController extends AbstractController
@@ -49,6 +50,20 @@ class UserController extends AbstractController
 
         $post = new Post(null, null, null, null, null, $user_id, null, null);
         $myPost = $post->showUserPost();
+
+
+
+
+        $like = new Like(null, $user_id, null);
+        $idsLikedPost = $like->getPostIdFromUserId();
+        $likedPosts = [];
+
+        foreach ($idsLikedPost as $postLiked) {
+          $idPost = $postLiked->getPostId();
+          $post = new Post($idPost, null, null, null, null, null, null, null);
+          $likedPost = $post->showPostById();
+          $likedPosts[] = $likedPost;
+        }
 
 
         // afficher des utilisateur a suivre
