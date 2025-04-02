@@ -121,5 +121,61 @@ if(document.getElementById('show-post-action')){
 
 }
 
+console.log(document.getElementById("loadUsers"));
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const test = document.getElementById("loadUsers")
+  fetch("http://localhost:8000/test")
+      .then(response => response.json())
+      .then(data => {
+          let userList = document.getElementById("postList");
+          userList.innerHTML = "";
+          data.forEach(post => {
+            let postElement = document.createElement("div");
+            postElement.classList.add("post");
+
+            // Créer la partie utilisateur
+            let userInfo = document.createElement("a");
+            userInfo.href = "/profile?id=" + post.user_id; // Lien vers le profil de l'utilisateur
+            userInfo.classList.add("post-user-info");
+            userInfo.innerHTML = `
+                <div class="user-img">
+                    <img src="/public/uploads/${post.profile_picture || "img_default.png"}" alt="${post.username} profile picture">
+                </div>
+                <h5>${post.username}</h5>
+            `;
+               // Créer la section du contenu du post
+               let postContent = document.createElement("p");
+               postContent.textContent = post.content;
+
+               // Créer les boutons (commentaires et likes)
+               let iconContainer = document.createElement("div");
+               iconContainer.classList.add("post-icon-container");
+
+               // Bouton commentaire
+               let commentBtn = document.createElement("button");
+               commentBtn.classList.add("add-comment-btn");
+               commentBtn.innerHTML = `<i class="fa-regular fa-comment"></i>`;
+               iconContainer.appendChild(commentBtn);
+                // Bouton like
+                let likeBtn = document.createElement("button");
+                likeBtn.classList.add("add-like-btn");
+                likeBtn.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+                iconContainer.appendChild(likeBtn);
+
+                // Bouton supprimer si l'utilisateur est le propriétaire du post
+               
+                // Ajouter toutes les parties au conteneur du post
+                postElement.appendChild(userInfo);
+                postElement.appendChild(postContent);
+                postElement.appendChild(iconContainer);
+
+                // Ajouter le post à la liste
+                userList.appendChild(postElement);
+          });
+      })
+      .catch(error => console.error("Erreur:", error));
+});
 
 

@@ -124,6 +124,9 @@ require_once(__DIR__ . "/partials/head.php");
 ?>
   </div>
   </div>
+  <div id="postList">
+
+  </div>
 </section>
 <div class="show-users-container">
   <?php
@@ -149,6 +152,7 @@ require_once(__DIR__ . "/partials/head.php");
   }
   ?>
 </div>
+
 <?php
 
 require_once(__DIR__ . "/partials/footer.php");

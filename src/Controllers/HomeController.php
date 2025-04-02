@@ -9,6 +9,8 @@ use App\Utils\AbstractController;
 use App\Models\Comment;
 use App\Models\Like;
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 class HomeController
 {
   public function index()
@@ -86,7 +88,7 @@ class HomeController
         }
       }
 
-
+      $posts = [];
 
       // trier les posts par le plus récent au plus ancien 
       usort($posts, function ($a, $b) {
@@ -161,9 +163,78 @@ class HomeController
         header("Location: /");
       }
 
+
+
       require_once(__DIR__ . '/../Views/home.view.php');
     } else {
       // $this->redirectToRoute("/register");
+    }
+  }
+
+  public function getPost()
+  {
+    require_once(__DIR__ . '/../Views/test.view.php');
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+      $user_id = $_SESSION['user']['user_id'];
+      $post = new Post(null, null, null, null, null, null, null, null);
+      $postsAjax = $post->showAllPosts();
+      //récupérer les ids des users suivi pour récupérer leur postes
+      $follow = new Follow(null, $user_id, null);
+      $id_users_followed = $follow->followingUserId();
+      $ids = [$user_id];
+
+      if ($id_users_followed) {
+        foreach ($id_users_followed as $id) {
+          $user_followed_id = $id->getIdFollowing();
+          $ids[] = $user_followed_id;
+        }
+      }
+      // affichage des postes des user que l'on suit
+      $posts = [];
+      $idPostAndNumberComment = [];
+      $idPostAndNumberLikes = [];
+      foreach ($ids as $id) {
+        $post = new Post(null, null, null, null, null, $id, null, null);
+        $result = $post->showPosts();
+
+        if ($result) {
+          if (is_array($result)) {
+            $posts = array_merge($posts, $result); // Fusionne les objets directement
+          }
+          foreach ($result as $post) {
+            $idPostComment = $post->getId();
+
+            // $postId = $result->getId();
+            $comment = new Comment(null, null, null, null, $idPostComment, null, null);
+            $NumberComment = $comment->countCommentByPostId();
+            // Extraction du nombre de commentaires
+            // rendre le tableau associatif en int
+            $numberOfComment = reset($NumberComment);
+            // ajouter l'id du post et le nombre de commentaires
+            $idPostAndNumberComment[$idPostComment] = $numberOfComment;
+
+            $like = new Like(null, null, $idPostComment);
+            $NumberLike = $like->countLikesByPostId();
+            // Extraction du nombre de likes
+            // rendre le tableau associatif en int
+            $numberOfLike = reset($NumberLike);
+            // ajouter l'id du post et le nombre de likes
+            $idPostAndNumberLikes[$idPostComment] = $numberOfLike;
+          }
+        }
+      }
+
+      usort($posts, function ($a, $b) {
+        return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
+      });
+
+      // Convertir chaque objet en tableau associatif
+      $postsArray = array_map(fn($post) => $post->toArray(), $posts);
+
+      // Encoder en JSON et afficher
+      echo json_encode($postsArray, JSON_PRETTY_PRINT);
+      exit;
     }
   }
 }
