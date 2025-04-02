@@ -17,5 +17,6 @@ $router->addRoute('/logout', "ConnexionController", "logout");
 $router->addRoute('/profile', "UserController", "index");
 
 $router->addRoute('/post', "PostController", "index");
+$router->addRoute('/test', "HomeController", "getPost");
 
 $router->handleRequest();

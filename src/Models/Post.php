@@ -78,6 +78,26 @@ class Post
     }
   }
 
+  public function showAllPosts()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT posts.*, `users`.`id` AS `user_id`,`users`.`username`, `users`.`profile_picture` 
+        FROM `posts`
+        JOIN `users` ON `posts`.`user_id` = `users`.`id`
+        ORDER BY `posts`.`created_at` DESC;";
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $posts = [];
+    if ($resultFetch) {
+      foreach ($resultFetch as $row) {
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
+        $posts[] = $post;
+      }
+      return $posts;
+    }
+  }
+
   public function showPostById()
   {
     $pdo = DataBase::getConnection();
@@ -93,6 +113,20 @@ class Post
     } else {
       return null;
     }
+  }
+
+  public function toArray()
+  {
+    return [
+      "id" => $this->id,
+      "content" => $this->content,
+      "image" => $this->image,
+      "created_at" => $this->created_at,
+      "updated_at" => $this->updated_at,
+      "user_id" => $this->user_id,
+      "username" => $this->username,
+      "profile_picture" => $this->profile_picture,
+    ];
   }
 
   public function deletePost()
