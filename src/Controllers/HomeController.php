@@ -58,7 +58,7 @@ class HomeController
       $idPostAndNumberComment = [];
       $idPostAndNumberLikes = [];
       foreach ($ids as $id) {
-        $post = new Post(null, null, null, null, null, $id, null, null);
+        $post = new Post(null, null, null, null, null, $id, null, null, null, null);
         $result = $post->showPosts();
 
         if ($result) {
@@ -100,7 +100,7 @@ class HomeController
         $myPost = htmlspecialchars($_POST['post']);
         $created_at = date('Y-m-d H:i:s');
         if ($myPost) {
-          $post = new Post(null, $myPost, null, $created_at, null, $user_id, null, null);
+          $post = new Post(null, $myPost, null, $created_at, null, $user_id, null, null, null, null);
 
           $post->addPost();
           header("Location:  /");
@@ -136,9 +136,11 @@ class HomeController
 
       // afficher les commentaires d'un poste
       if (isset($_POST['idPost'])) {
+       
         $idPost = $_POST['idPost'];
-        $post = new Post($idPost, null, null, null, null, null, null, null);
+        $post = new Post($idPost, null, null, null, null, null, null, null, null, null);
         $showPost = $post->showPostById();
+
         $comment = new Comment(null, null, null, null, $idPost, null, null);
         $allComment = $comment->showCommentByPostId();
       }
@@ -158,7 +160,7 @@ class HomeController
       //supprimer un post
       if (isset($_POST['idPostDelete'])) {
         $idPostToDelete = $_POST['idPostDelete'];
-        $post = new Post($idPostToDelete, null, null, null, null, null, null, null);
+        $post = new Post($idPostToDelete, null, null, null, null, null, null, null, null, null);
         $post->deletePost();
         header("Location: /");
       }
@@ -177,7 +179,7 @@ class HomeController
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $user_id = $_SESSION['user']['user_id'];
-      $post = new Post(null, null, null, null, null, null, null, null);
+      $post = new Post(null, null, null, null, null, null, null, null, null, null);
       $postsAjax = $post->showAllPosts();
       //récupérer les ids des users suivi pour récupérer leur postes
       $follow = new Follow(null, $user_id, null);
@@ -195,44 +197,27 @@ class HomeController
       $idPostAndNumberComment = [];
       $idPostAndNumberLikes = [];
       foreach ($ids as $id) {
-        $post = new Post(null, null, null, null, null, $id, null, null);
+        $post = new Post(null, null, null, null, null, $id, null, null, null, null);
         $result = $post->showPosts();
+        
 
         if ($result) {
           if (is_array($result)) {
             $posts = array_merge($posts, $result); // Fusionne les objets directement
-          }
-          foreach ($result as $post) {
-            $idPostComment = $post->getId();
-
-            // $postId = $result->getId();
-            $comment = new Comment(null, null, null, null, $idPostComment, null, null);
-            $NumberComment = $comment->countCommentByPostId();
-            // Extraction du nombre de commentaires
-            // rendre le tableau associatif en int
-            $numberOfComment = reset($NumberComment);
-            // ajouter l'id du post et le nombre de commentaires
-            $idPostAndNumberComment[$idPostComment] = $numberOfComment;
-
-            $like = new Like(null, null, $idPostComment);
-            $NumberLike = $like->countLikesByPostId();
-            // Extraction du nombre de likes
-            // rendre le tableau associatif en int
-            $numberOfLike = reset($NumberLike);
-            // ajouter l'id du post et le nombre de likes
-            $idPostAndNumberLikes[$idPostComment] = $numberOfLike;
-          }
+          }   
         }
       }
+     
 
       usort($posts, function ($a, $b) {
         return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
       });
-
+   
       // Convertir chaque objet en tableau associatif
       $postsArray = array_map(fn($post) => $post->toArray(), $posts);
-
+ 
       // Encoder en JSON et afficher
+      header("Content-Type: application/json");
       echo json_encode($postsArray, JSON_PRETTY_PRINT);
       exit;
     }
