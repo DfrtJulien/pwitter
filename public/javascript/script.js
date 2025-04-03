@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
           userList.innerHTML = "";
           data.forEach(post => {
             userList.innerHTML +=  `  <div class="post">
-            <a href="/profile?id=${post.id}">
+            <a href="/profile?id=${post.user_id}">
               <div class="post-user-info">
                 <div class="user-img">
                   <img src="/public/uploads/${post.profile_picture || "img_default.png"}" alt="${post.username} profile pciture">

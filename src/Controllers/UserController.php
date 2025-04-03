@@ -41,6 +41,8 @@ class UserController extends AbstractController
         $userFollower = [];
         $id_user_follower = $follow->followerUserId();
         $usersFollowed = [];
+        if($id_user_follower){
+
         foreach ($id_user_follower as $userFollowing) {
 
           $idUserFollowing = $userFollowing->getIdFollowed();
@@ -49,8 +51,9 @@ class UserController extends AbstractController
           $usersFollowed[] = $myUsers;
         }
 
+      }
 
-        $post = new Post(null, null, null, null, null, $user_id, null, null);
+        $post = new Post(null, null, null, null, null, $user_id, null, null,null,null);
         $myPost = $post->showUserPost();
 
 
@@ -65,7 +68,7 @@ class UserController extends AbstractController
 
           foreach ($idsLikedPost as $postLiked) {
             $idPost = $postLiked->getPostId();
-            $post = new Post($idPost, null, null, null, null, null, null, null);
+            $post = new Post($idPost, null, null, null, null, null, null, null,null,null);
             $likedPost = $post->showPostById();
             $likedPosts[] = $likedPost;
           }

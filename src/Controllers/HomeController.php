@@ -42,58 +42,7 @@ class HomeController
 
 
 
-      //récupérer les ids des users suivi pour récupérer leur postes
-      $follow = new Follow(null, $user_id, null);
-      $id_users_followed = $follow->followingUserId();
-      $ids = [$user_id];
 
-      if ($id_users_followed) {
-        foreach ($id_users_followed as $id) {
-          $user_followed_id = $id->getIdFollowing();
-          $ids[] = $user_followed_id;
-        }
-      }
-      // affichage des postes des user que l'on suit
-      $posts = [];
-      $idPostAndNumberComment = [];
-      $idPostAndNumberLikes = [];
-      foreach ($ids as $id) {
-        $post = new Post(null, null, null, null, null, $id, null, null, null, null);
-        $result = $post->showPosts();
-
-        if ($result) {
-          if (is_array($result)) {
-            $posts = array_merge($posts, $result); // Fusionne les objets directement
-          }
-          foreach ($result as $post) {
-            $idPostComment = $post->getId();
-
-            // $postId = $result->getId();
-            $comment = new Comment(null, null, null, null, $idPostComment, null, null);
-            $NumberComment = $comment->countCommentByPostId();
-            // Extraction du nombre de commentaires
-            // rendre le tableau associatif en int
-            $numberOfComment = reset($NumberComment);
-            // ajouter l'id du post et le nombre de commentaires
-            $idPostAndNumberComment[$idPostComment] = $numberOfComment;
-
-            $like = new Like(null, null, $idPostComment);
-            $NumberLike = $like->countLikesByPostId();
-            // Extraction du nombre de likes
-            // rendre le tableau associatif en int
-            $numberOfLike = reset($NumberLike);
-            // ajouter l'id du post et le nombre de likes
-            $idPostAndNumberLikes[$idPostComment] = $numberOfLike;
-          }
-        }
-      }
-
-      $posts = [];
-
-      // trier les posts par le plus récent au plus ancien 
-      usort($posts, function ($a, $b) {
-        return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
-      });
 
       // ajouter un post
       if (isset($_POST['post'])) {
