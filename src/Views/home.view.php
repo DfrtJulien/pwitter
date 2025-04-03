@@ -11,7 +11,6 @@ require_once(__DIR__ . "/partials/head.php");
   <div class="show-post">
     <div>
       <?php
-      if (!empty($posts)) {
         if (isset($showPost)) {
       ?>
           <div id="post-focus">
@@ -120,7 +119,7 @@ require_once(__DIR__ . "/partials/head.php");
 <?php
           }
         }
-      }
+      
 ?>
   </div>
   </div>
@@ -153,7 +152,11 @@ require_once(__DIR__ . "/partials/head.php");
   ?>
 </div>
 
+<script>
+  const userId = <?= $_SESSION['user']['user_id'] ?>
+</script>
 <?php
+
 
 require_once(__DIR__ . "/partials/footer.php");
 ?>

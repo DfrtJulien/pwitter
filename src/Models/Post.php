@@ -15,9 +15,11 @@ class Post
   protected ?int $user_id;
   protected ?string $username;
   protected ?string $profile_picture;
+  protected ?int $comment_count;
+  protected ?int $like_count;
 
 
-  public function __construct(?int $id, ?string $content, ?string $image, ?string $created_at, string|null $updated_at, ?int $user_id, ?string $username, ?string $profile_picture)
+  public function __construct(?int $id, ?string $content, ?string $image, ?string $created_at, string|null $updated_at, ?int $user_id, ?string $username, ?string $profile_picture, ?int $comment_count, ?int $like_count)
   {
     $this->id = $id;
     $this->content = $content;
@@ -27,6 +29,8 @@ class Post
     $this->user_id = $user_id;
     $this->username = $username;
     $this->profile_picture = $profile_picture;
+    $this->comment_count = $comment_count;
+    $this->like_count = $like_count;
   }
 
   public function addPost()
@@ -40,18 +44,27 @@ class Post
   public function showPosts()
   {
     $pdo = DataBase::getConnection();
-    $sql = "SELECT posts.*, `users`.`id` AS `user_id`,`users`.`username`, `users`.`profile_picture` 
-        FROM `posts`
-        JOIN `users` ON `posts`.`user_id` = `users`.`id`
-        WHERE `posts`.`user_id` = ?
-        ORDER BY `posts`.`created_at` DESC;";
+    $sql = "SELECT 
+    posts.*, 
+    `users`.`id` AS user_id, 
+    `users`.`username`, 
+    `users`.`profile_picture`, 
+    COUNT(DISTINCT `comments`.`id`) AS comment_count, 
+    COUNT(DISTINCT `likes`.`id`) AS like_count
+FROM `posts`
+JOIN `users` ON `posts`.`user_id` = `users`.`id`
+LEFT JOIN `comments` ON `posts`.`id` = `comments`.`post_id`
+LEFT JOIN `likes` ON `posts`.`id` = `likes`.`post_id`
+WHERE `posts`.user_id = ?
+GROUP BY `posts`.`id`
+ORDER BY `posts`.`created_at` DESC";
     $statement = $pdo->prepare($sql);
     $statement->execute([$this->user_id]);
     $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
     $posts = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture'], $row['comment_count'], $row['like_count']);
         $posts[] = $post;
       }
       return $posts;
@@ -71,7 +84,7 @@ class Post
     $posts = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], null, null);
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], null, null,null,null);
         $posts[] = $post;
       }
       return $posts;
@@ -81,17 +94,28 @@ class Post
   public function showAllPosts()
   {
     $pdo = DataBase::getConnection();
-    $sql = "SELECT posts.*, `users`.`id` AS `user_id`,`users`.`username`, `users`.`profile_picture` 
-        FROM `posts`
-        JOIN `users` ON `posts`.`user_id` = `users`.`id`
-        ORDER BY `posts`.`created_at` DESC;";
+    $sql = "SELECT 
+        posts.*, 
+        `users`.`id` AS user_id, 
+        `users`.`username`, 
+        `users`.`profile_picture`, 
+        COUNT(DISTINCT `comments`.`id`) AS comment_count, 
+        COUNT(DISTINCT `likes`.`id`) AS like_count
+    FROM `posts`
+    JOIN `users` ON `posts`.`user_id` = `users`.`id`
+    LEFT JOIN `comments` ON `posts`.`id` = `comments`.`post_id`
+    LEFT JOIN `likes` ON `posts`.`id` = `likes`.`post_id`
+    WHERE `posts`.user_id = ?
+    GROUP BY `posts`.`id`
+    ORDER BY `posts`.`created_at` DESC";
     $statement = $pdo->prepare($sql);
-    $statement->execute();
+    $statement->execute([$this->user_id]);
     $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
     $posts = [];
+
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
+        $post =  new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture'],$row['comment_count'],$row['like_count']);
         $posts[] = $post;
       }
       return $posts;
@@ -109,7 +133,7 @@ class Post
     $statement->execute([$this->id]);
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     if ($row) {
-      return new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture']);
+      return new Post($row['id'], $row['content'], $row['image'], $row['created_at'], $row['updated_at'], $row['user_id'], $row['username'], $row['profile_picture'], null,null);
     } else {
       return null;
     }
@@ -126,6 +150,8 @@ class Post
       "user_id" => $this->user_id,
       "username" => $this->username,
       "profile_picture" => $this->profile_picture,
+      "comment_count" => $this->comment_count,
+      "like_count" => $this->like_count,
     ];
   }
 
