@@ -387,6 +387,37 @@ img {
 	border-bottom: 3px solid rgb(243, 94, 65);
 }
 
+/********************************** SEARCH ****************************/
+
+.search-title,
+.search-form-container,
+.show-post h2 {
+	color: white;
+	padding: 10px 15px;
+}
+
+.search-container {
+	position: relative;
+}
+
+.search-container input {
+	border: none;
+	padding: 5px 35px;
+	border-radius: 8px;
+}
+
+.search-container button {
+	background-color: transparent;
+	border: none;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+
+.search-container i {
+	opacity: 0.5;
+}
+
 @media screen and (min-width: 698px) {
 
 	/**************** NAVBAR *****************/
