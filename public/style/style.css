@@ -218,7 +218,8 @@ img {
 	border-top: 1px solid rgba(224, 222, 222, 0.514);
 }
 
-.post-user-info {
+.post-user-info,
+.show-message-user-info {
 	display: flex;
 	align-items: center;
 	column-gap: 8px;
@@ -226,7 +227,8 @@ img {
 }
 
 .post h5,
-.show-users h5 {
+.show-users h5,
+.show-message-user-info h5 {
 	font-size: 1.5rem;
 	color: white;
 }
@@ -416,6 +418,75 @@ img {
 
 .search-container i {
 	opacity: 0.5;
+}
+
+/************************************** MESSAGE ********************************/
+.show-message-user-info {
+	margin-bottom: 20px;
+}
+
+.show-message {
+	border-top: 1px solid rgba(224, 222, 222, 0.514);
+	padding: 15px;
+}
+
+.message-container {
+	padding: 15px 0;
+}
+
+.my-message {
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	
+}
+
+.my-message p {
+	background-color: rgb(243, 94, 65);
+	color: white;
+}
+
+.received-message p {
+	background-color: white;
+	color: black;
+}
+
+.received-message p,
+.my-message p {
+	
+	text-align: end;
+	width: 150px;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+	position: relative;
+	z-index: 5;
+}
+
+.my-message p::before {
+	content: "";
+	position: absolute;
+	width: 13px;
+	height: 13px;
+	background-color: rgb(243, 94, 65);
+	left: -3px;
+	bottom: -1px;
+	border-bottom-right-radius: 50%;
+	border-top-left-radius: 50%;
+	z-index: -1;
+}
+
+.received-message p::before {
+	content: "";
+	position: absolute;
+	width: 13px;
+	height: 13px;
+	background-color: white;
+	left: -3px;
+	bottom: -1px;
+	border-bottom-right-radius: 50%;
+	border-top-left-radius: 50%;
+	z-index: -1;
 }
 
 @media screen and (min-width: 698px) {

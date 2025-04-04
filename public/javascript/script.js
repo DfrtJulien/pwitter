@@ -121,7 +121,7 @@ if(document.getElementById('show-post-action')){
 
 }
 
-console.log(document.getElementById("loadUsers"));
+if( document.getElementById("postList")){
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -177,5 +177,14 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .catch(error => console.error("Erreur:", error));
 });
+}
 
+if(document.getElementById('message')){
+  console.log("test");
+  
+  const MESSAGE = document.getElementById('message');
+  const SEARCHED = document.getElementById('searched');
+console.log(SEARCHED);
 
+  SEARCHED.style.display = "none";
+}

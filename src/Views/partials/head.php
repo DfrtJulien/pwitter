@@ -32,7 +32,7 @@
                         <p>Rechercher</p>
                     </div>
                 </a>
-                <a href="/">
+                <a href="/message">
                     <div class="nav-flex">
                         <i class="fa-regular fa-envelope"></i>
                         <p>Message</p>

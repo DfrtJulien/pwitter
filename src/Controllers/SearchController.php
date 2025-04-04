@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
 use App\Models\Follow;
 use App\Utils\AbstractController;
 

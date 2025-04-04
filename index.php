@@ -19,5 +19,6 @@ $router->addRoute('/profile', "UserController", "index");
 $router->addRoute('/post', "PostController", "index");
 $router->addRoute('/test', "HomeController", "getPost");
 $router->addRoute('/search', "SearchController", "search");
+$router->addRoute('/message', "MessageController", "message");
 
 $router->handleRequest();
