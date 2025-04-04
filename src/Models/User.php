@@ -109,6 +109,22 @@ class User
     return $statement->execute([$this->username, $this->bio, $this->profile_picture, $this->id]);
   }
 
+  public function searchedUsers($search){
+    $pdo = DataBase::getConnection();
+        $sql = "SELECT  `id`, `username`, `profile_picture` FROM users WHERE `username` LIKE ?";
+        $statement = $pdo->prepare($sql);
+        $statement->execute([$search]);
+        $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $users = [];
+        if ($resultFetch) {
+            foreach ($resultFetch as $row) {
+              $user =  new User($row['id'], $row['username'], null, null, $row['profile_picture'],null, null);
+              $users[] = $user;
+            }
+            return $users;
+        } 
+  }
+
   public function getId(): ?int
   {
     return $this->id;

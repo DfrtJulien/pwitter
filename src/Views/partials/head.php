@@ -26,7 +26,7 @@
                         <p>Accueil</p>
                     </div>
                 </a>
-                <a href="/">
+                <a href="/search">
                     <div class="nav-flex">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <p>Rechercher</p>
