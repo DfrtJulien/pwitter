@@ -15,7 +15,7 @@ class PostController extends AbstractController
     if (isset($_GET['id'])) {
       $post_id = $_GET['id'];
 
-      $post = new Post($post_id, null, null, null, null, null, null, null);
+      $post = new Post($post_id, null, null, null, null, null, null, null,null,null);
       $postInfo = $post->showPostById();
 
       $comment = new Comment(null, null, null, null, $post_id, null, null);
