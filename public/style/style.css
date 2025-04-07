@@ -421,11 +421,14 @@ img {
 }
 
 /************************************** MESSAGE ********************************/
+
+
 .show-message-user-info {
 	margin-bottom: 20px;
 }
 
-.show-message {
+.show-message,
+.show-user-message {
 	border-top: 1px solid rgba(224, 222, 222, 0.514);
 	padding: 15px;
 }
@@ -550,7 +553,8 @@ img {
 	/*********************************************************** HOME ***************************************************/
 
 	.show-post,
-	.show-liked-post {
+	.show-liked-post,
+	.search-user {
 		width: 500px;
 	}
 
@@ -584,5 +588,11 @@ img {
 	.comment {
 		width: 600px;
 		margin: 150px auto;
+	}
+
+	/***************************** MESSAGE ***********************/
+
+	.search-user {
+		border-right: 1px solid rgba(224, 222, 222, 0.514);
 	}
 }

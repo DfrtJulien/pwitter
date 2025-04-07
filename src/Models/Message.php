@@ -12,15 +12,18 @@ class Message
   protected ?string $created_at;
   protected ?int $sender_id;
   protected ?int $receiver_id;
+  protected ?string $username;
+  protected string|null $profile_picture;
 
-
-  public function __construct(?int $id,?string $message,?string $created_at, ?int $sender_id, ?int $receiver_id)
+  public function __construct(?int $id,?string $message,?string $created_at, ?int $sender_id, ?int $receiver_id,?string $username,string|null $profile_picture)
   {
     $this->id = $id;
     $this->message = $message;
     $this->created_at = $created_at;
     $this->sender_id = $sender_id;
     $this->receiver_id = $receiver_id;
+    $this->username = $username;
+    $this->profile_picture = $profile_picture;
   }
 
 
@@ -43,11 +46,50 @@ class Message
     $messages = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id']);
+        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], null,null);
         $messages[] = $message;
       }
       return $messages;
     }
+  }
+
+  public function showRecentMessages()
+  {
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT 
+  m1.*, 
+  u.username AS interlocutor_username,
+  u.profile_picture AS interlocutor_profile_picture
+FROM messages m1
+JOIN users u 
+  ON u.id = CASE 
+              WHEN m1.sender_id = ? THEN m1.receiver_id
+              ELSE m1.sender_id
+            END
+WHERE m1.created_at = (
+    SELECT MAX(m2.created_at)
+    FROM messages m2
+    WHERE (
+        (m2.sender_id = m1.sender_id AND m2.receiver_id = m1.receiver_id)
+        OR
+        (m2.sender_id = m1.receiver_id AND m2.receiver_id = m1.sender_id)
+    )
+)
+AND (? IN (m1.sender_id, m1.receiver_id))
+ORDER BY m1.created_at DESC
+            ";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->sender_id, $this->sender_id]);
+    $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $messages = [];
+    if ($resultFetch) {
+      foreach ($resultFetch as $row) {
+        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], $row["interlocutor_username"], $row['interlocutor_profile_picture']);
+        $messages[] = $message;
+      }
+      return $messages;
+    }
+      
   }
 
   public function getMessage(): ?string
@@ -74,4 +116,15 @@ class Message
   {
     return $this->receiver_id;
   }
+
+  public function getUsername(): ?string
+  {
+    return $this->username;
+  }
+
+  public function getProfilePicture(): ?string
+  {
+    return $this->profile_picture;
+  }
+
 }
