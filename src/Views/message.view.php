@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/partials/head.php");
 ?>
-<div class="show-post">
+<div class="search-user">
     <h1>Message</h1>
     <form method="GET" action="/message" class="search-form-container">
         <div class="search-container">
@@ -9,7 +9,8 @@ require_once(__DIR__ . "/partials/head.php");
             <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </form>
-    <?php
+<div class="show-user-message">
+    <?php  
     if (isset($search_terms)) {
         if ($searcheUsers) {
             ?>
@@ -41,8 +42,27 @@ require_once(__DIR__ . "/partials/head.php");
             <h2>Nous n'avons rien trouvé 😥</h2>
     <?php
         }
+    } elseif (isset($showAllMessage)){
+        foreach($showAllMessage as $message){
+            ?>
+            <div class="one-message">
+                <div class="show-message-user-info"> 
+                    <div class="user-img">
+                        <img src="/public/uploads/<?= $message->getProfilePicture() ? $message->getProfilePicture() : "img_default.png" ?>" alt="">
+                    </div>
+                    <h5><?= $message->getUsername() ?></h5>
+                </div>
+                <p class="message-content"><?= $message->getMessage() ?></p>
+                <form method="POST">
+                        <input type="hidden" name="send-msg" value="<?= $message->getSenderId() != $_SESSION['user']['user_id'] ? $message->getSenderId() : $message->getReceiverId() ?>">
+                        <button type="submit" class="active-btn send-msg-btn">Envoyer un message</button>
+                    </form>
+            </div>
+            <?php
+        }
     }
     ?>
+</div>
 </div>
 <div class="show-message">
     <?php
