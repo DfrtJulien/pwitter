@@ -125,14 +125,14 @@ if( document.getElementById("postList")){
 
 
 document.addEventListener("DOMContentLoaded", function() {
- console.log("test");
  
   fetch("http://localhost:8000/test")
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        
-          let userList = document.getElementById("postList");
+       
+        let onLoadData = data.length;
+        let showCountNewPost = document.getElementById('shoNewPost');        
+        let userList = document.getElementById("postList");
           userList.innerHTML = "";
           data.forEach(post => {
             userList.innerHTML +=  `  <div class="post">
@@ -174,6 +174,22 @@ document.addEventListener("DOMContentLoaded", function() {
                // Créer la section du contenu du post
               
           });
+          setInterval(function() {
+            fetch("http://localhost:8000/test")
+      .then(response => response.json())
+      .then(data => {
+        let newData = data.length;
+        console.log(newData);
+        if(onLoadData !== newData){
+          let numberOfNewPost = newData - onLoadData
+          showCountNewPost.innerText = `${numberOfNewPost} Nouveaux postes`
+          console.log(newData - onLoadData)
+        }
+      })
+        }, 15000);
+        showCountNewPost.addEventListener('click', () => {
+          location.reload();
+        })
       })
       .catch(error => console.error("Erreur:", error));
 });
