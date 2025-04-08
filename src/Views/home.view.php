@@ -10,6 +10,7 @@ require_once(__DIR__ . "/partials/head.php");
 
   <div class="show-post">
     <div>
+      <p id="shoNewPost"></p>
       <?php
         if (isset($showPost)) {
       ?>
