@@ -422,6 +422,13 @@ img {
 
 /************************************** MESSAGE ********************************/
 
+.search-form {
+	padding: 15px;
+}
+
+.search-form h1 {
+	color: white;
+}
 
 .show-message-user-info {
 	margin-bottom: 20px;
@@ -431,6 +438,11 @@ img {
 .show-user-message {
 	border-top: 1px solid rgba(224, 222, 222, 0.514);
 	padding: 15px;
+}
+
+.message-content {
+	color: white;
+	margin-bottom: 8px;
 }
 
 .message-container {
