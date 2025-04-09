@@ -124,7 +124,7 @@ class HomeController extends AbstractController
 
   public function getPost()
   {
-    require_once(__DIR__ . '/../Views/test.view.php');
+  
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $user_id = $_SESSION['user']['user_id'];
@@ -143,8 +143,7 @@ class HomeController extends AbstractController
       }
       // affichage des postes des user que l'on suit
       $posts = [];
-      $idPostAndNumberComment = [];
-      $idPostAndNumberLikes = [];
+  
       foreach ($ids as $id) {
         $post = new Post(null, null, null, null, null, $id, null, null, null, null);
         $result = $post->showPosts();
@@ -156,19 +155,32 @@ class HomeController extends AbstractController
           }   
         }
       }
-     
+      
+      $uniquePosts = [];
+      $seenIds = [];
+      
+      foreach ($posts as $post) {
+          if (!in_array($post->getId(), $seenIds)) {
+              $uniquePosts[] = $post;
+              $seenIds[] = $post->getId();
+          }
+      }
+      
+      $posts = $uniquePosts;
 
       usort($posts, function ($a, $b) {
         return strtotime($b->getCreationDate()) - strtotime($a->getCreationDate());
       });
-   
+      
+      
       // Convertir chaque objet en tableau associatif
       $postsArray = array_map(fn($post) => $post->toArray(), $posts);
- 
+     
       // Encoder en JSON et afficher
       header("Content-Type: application/json");
       echo json_encode($postsArray, JSON_PRETTY_PRINT);
       exit;
     }
+    require_once(__DIR__ . '/../Views/test.view.php');
   }
 }
