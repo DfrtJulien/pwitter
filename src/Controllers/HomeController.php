@@ -11,7 +11,7 @@ use App\Models\Like;
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-class HomeController
+class HomeController extends AbstractController
 {
   public function index()
   {
@@ -118,7 +118,7 @@ class HomeController
 
       require_once(__DIR__ . '/../Views/home.view.php');
     } else {
-      // $this->redirectToRoute("/register");
+       $this->redirectToRoute("/register");
     }
   }
 
