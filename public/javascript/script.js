@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
   fetch("http://localhost:8000/test")
       .then(response => response.json())
       .then(data => {
+       console.log(data);
        
         let onLoadData = data.length;
         let showCountNewPost = document.getElementById('shoNewPost');        
