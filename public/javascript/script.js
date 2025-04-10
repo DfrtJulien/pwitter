@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
   fetch("http://localhost:8000/test")
       .then(response => response.json())
       .then(data => {
-       console.log(data);
+       
        
         let onLoadData = data.length;
         let showCountNewPost = document.getElementById('shoNewPost');        
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if(onLoadData !== newData){
           let numberOfNewPost = newData - onLoadData
           showCountNewPost.innerHTML = `<p><i class="fa-solid fa-arrow-rotate-left"></i> ${numberOfNewPost} Nouveaux postes</p>`
-          console.log(newData - onLoadData)
+        
         }
       })
         }, 15000);
@@ -193,6 +193,27 @@ document.addEventListener("DOMContentLoaded", function() {
         })
       })
       .catch(error => console.error("Erreur:", error));
+
+      fetch("http://localhost:8000/getMessage")
+      .then(response => response.json())
+      .then(dataMessage => {
+       let numberMsg = dataMessage.length;
+       const messageContainer = document.getElementById('numberMessage');
+      console.log(numberMsg);
+      setInterval(function() {
+        fetch("http://localhost:8000/getMessage")
+        .then(response => response.json())
+        .then(dataMessage2 => {
+          let newMessageLength = dataMessage2.length;
+          console.log(newMessageLength);
+          if(numberMsg !== newMessageLength){
+            let numberOfNewPost = newMessageLength - numberMsg
+            messageContainer.innerHTML = `<i class="fa-regular fa-envelope"></i><p> <span class="numberNewMessage">${numberOfNewPost}</span> Messages</p>`
+    
+    }
+  })
+    }, 15000);
+      })
 });
 }
 

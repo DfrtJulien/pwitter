@@ -92,6 +92,33 @@ ORDER BY m1.created_at DESC
       
   }
 
+  public function showAllMessages(){
+    $pdo = DataBase::getConnection();
+    $sql = "SELECT * FROM `messages` WHERE `receiver_id` = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->receiver_id]);
+    $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $messages = [];
+    if ($resultFetch) {
+      foreach ($resultFetch as $row) {
+        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], null,null);
+        $messages[] = $message;
+      }
+      return $messages;
+    }
+  }
+
+  public function toArray()
+  {
+    return [
+      "id" => $this->id,
+      "message" => $this->message,
+      "created_at" => $this->created_at,
+      "sender_id" => $this->sender_id,
+      "receiver_id" => $this->receiver_id
+    ];
+  }
+
   public function getMessage(): ?string
   {
     return $this->message;
