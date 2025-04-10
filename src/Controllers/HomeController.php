@@ -8,6 +8,7 @@ use App\Models\Follow;
 use App\Utils\AbstractController;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\Message;
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -182,5 +183,25 @@ class HomeController extends AbstractController
       exit;
     }
     require_once(__DIR__ . '/../Views/test.view.php');
+  }
+
+  public function getMessage()
+  {
+  
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+      $user_id = $_SESSION['user']['user_id'];
+      $message = new Message(null, null,null,null,$user_id,null,null);
+      $messagesAjax = $message->showAllMessages();
+      
+      // Convertir chaque objet en tableau associatif
+      $MessagesArray = array_map(fn($message) => $message->toArray(), $messagesAjax);
+    
+      // Encoder en JSON et afficher
+      header("Content-Type: application/json");
+      echo json_encode($MessagesArray, JSON_PRETTY_PRINT);
+      exit;
+    }
+    require_once(__DIR__ . '/../Views/getMessages.view.php');
   }
 }

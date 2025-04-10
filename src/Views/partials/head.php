@@ -33,7 +33,7 @@
                     </div>
                 </a>
                 <a href="/message">
-                    <div class="nav-flex">
+                    <div class="nav-flex" id ="numberMessage">
                         <i class="fa-regular fa-envelope"></i>
                         <p>Message</p>
                     </div>
