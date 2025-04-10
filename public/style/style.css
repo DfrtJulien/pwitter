@@ -226,6 +226,11 @@ img {
 	margin: 10px 0;
 }
 
+#shoNewPost {
+	padding: 15px;
+	color: white;
+}
+
 .post h5,
 .show-users h5,
 .show-message-user-info h5 {

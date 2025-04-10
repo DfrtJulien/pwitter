@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(newData);
         if(onLoadData !== newData){
           let numberOfNewPost = newData - onLoadData
-          showCountNewPost.innerText = `${numberOfNewPost} Nouveaux postes`
+          showCountNewPost.innerHTML = `<p><i class="fa-solid fa-arrow-rotate-left"></i> ${numberOfNewPost} Nouveaux postes</p>`
           console.log(newData - onLoadData)
         }
       })
