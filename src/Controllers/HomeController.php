@@ -191,7 +191,7 @@ class HomeController extends AbstractController
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $user_id = $_SESSION['user']['user_id'];
-      $message = new Message(null, null,null,null,$user_id,null,null);
+      $message = new Message(null, null,null,null,null,$user_id,null,null);
       $messagesAjax = $message->showAllMessages();
       
       // Convertir chaque objet en tableau associatif

@@ -10,16 +10,18 @@ class Message
   protected ?int $id;
   protected ?string $message;
   protected ?string $created_at;
+  protected ?int $is_read;
   protected ?int $sender_id;
   protected ?int $receiver_id;
   protected ?string $username;
   protected string|null $profile_picture;
 
-  public function __construct(?int $id,?string $message,?string $created_at, ?int $sender_id, ?int $receiver_id,?string $username,string|null $profile_picture)
+  public function __construct(?int $id,?string $message,?string $created_at, ?int $is_read, ?int $sender_id, ?int $receiver_id,?string $username,string|null $profile_picture)
   {
     $this->id = $id;
     $this->message = $message;
     $this->created_at = $created_at;
+    $this->is_read = $is_read;
     $this->sender_id = $sender_id;
     $this->receiver_id = $receiver_id;
     $this->username = $username;
@@ -30,9 +32,9 @@ class Message
   public function sendMessage()
   {
     $pdo = DataBase::getConnection();
-    $sql = "INSERT INTO messages (id,message, created_at, sender_id, receiver_id) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO messages (id,message, created_at,is_read, sender_id, receiver_id) VALUES (?,?,?,?,?,?)";
     $statement = $pdo->prepare($sql);
-    return $statement->execute([$this->id,$this->message, $this->created_at, $this->sender_id, $this->receiver_id]);
+    return $statement->execute([$this->id,$this->message, $this->created_at,$this->is_read, $this->sender_id, $this->receiver_id]);
   }
 
   public function showMessages()
@@ -46,7 +48,7 @@ class Message
     $messages = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], null,null);
+        $message =  new Message($row['id'], $row['message'], $row['created_at'],null, $row['sender_id'], $row['receiver_id'], null,null);
         $messages[] = $message;
       }
       return $messages;
@@ -84,7 +86,7 @@ ORDER BY m1.created_at DESC
     $messages = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], $row["interlocutor_username"], $row['interlocutor_profile_picture']);
+        $message =  new Message($row['id'], $row['message'], $row['created_at'],null, $row['sender_id'], $row['receiver_id'], $row["interlocutor_username"], $row['interlocutor_profile_picture']);
         $messages[] = $message;
       }
       return $messages;
@@ -94,18 +96,27 @@ ORDER BY m1.created_at DESC
 
   public function showAllMessages(){
     $pdo = DataBase::getConnection();
-    $sql = "SELECT * FROM `messages` WHERE `receiver_id` = ?";
+    $sql = "SELECT * FROM `messages` WHERE `receiver_id` = ? AND is_read = 0";
     $statement = $pdo->prepare($sql);
     $statement->execute([$this->receiver_id]);
     $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
     $messages = [];
     if ($resultFetch) {
       foreach ($resultFetch as $row) {
-        $message =  new Message($row['id'], $row['message'], $row['created_at'], $row['sender_id'], $row['receiver_id'], null,null);
+        $message =  new Message($row['id'], $row['message'], $row['created_at'],$row['is_read'], $row['sender_id'], $row['receiver_id'], null,null);
         $messages[] = $message;
       }
       return $messages;
     }
+  }
+
+  public function messageIsRead(){
+    $pdo = DataBase::getConnection();
+    $sql = "UPDATE messages
+            SET is_read = 1
+            WHERE sender_id = ? AND receiver_id = ?";
+    $statement = $pdo->prepare($sql);
+    $statement->execute([$this->receiver_id,$this->sender_id]);
   }
 
   public function toArray()
@@ -114,6 +125,7 @@ ORDER BY m1.created_at DESC
       "id" => $this->id,
       "message" => $this->message,
       "created_at" => $this->created_at,
+      "is_read" => $this->is_read,
       "sender_id" => $this->sender_id,
       "receiver_id" => $this->receiver_id
     ];

@@ -180,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(response => response.json())
       .then(data => {
         let newData = data.length;
-        console.log(newData);
         if(onLoadData !== newData){
           let numberOfNewPost = newData - onLoadData
           showCountNewPost.innerHTML = `<p><i class="fa-solid fa-arrow-rotate-left"></i> ${numberOfNewPost} Nouveaux postes</p>`
@@ -199,18 +198,16 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(dataMessage => {
        let numberMsg = dataMessage.length;
        const messageContainer = document.getElementById('numberMessage');
-      console.log(numberMsg);
+      console.log(dataMessage);
+       messageContainer.innerHTML = `<i class="fa-regular fa-envelope"></i><p> <span class="numberNewMessage">${numberMsg}</span> Messages</p>`
       setInterval(function() {
         fetch("http://localhost:8000/getMessage")
         .then(response => response.json())
         .then(dataMessage2 => {
-          let newMessageLength = dataMessage2.length;
-          console.log(newMessageLength);
-          if(numberMsg !== newMessageLength){
-            let numberOfNewPost = newMessageLength - numberMsg
-            messageContainer.innerHTML = `<i class="fa-regular fa-envelope"></i><p> <span class="numberNewMessage">${numberOfNewPost}</span> Messages</p>`
+          let numberMsg = dataMessage2.length;
+            messageContainer.innerHTML = `<i class="fa-regular fa-envelope"></i><p> <span class="numberNewMessage">${numberMsg}</span> Messages</p>`
     
-    }
+    
   })
     }, 15000);
       })
